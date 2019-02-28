@@ -1,0 +1,95 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function(nums1, nums2) {
+    nums1 = nums1 || [];
+    nums2 = nums2 || [];
+    var len = nums1.length + nums2.length;
+    var x1 = 0;
+    var x2 = 0;
+    var obj = {
+        prev: 0,
+        next: 0
+    };
+    var index = 0;
+    var v1 = 0;
+    var v2 = 0;
+
+    if(len%2 == 1){
+        x2 = Math.floor(len/2);
+    } else {
+        x2 = Math.floor(len/2);
+        x1 = x2 + 1;
+    }
+
+    while(index <= x2){
+        v1 = nums1[0];
+        v2 = nums2[0];
+
+        obj.prev = obj.next;
+
+        if(v1 === undefined){
+            obj.next = nums2.shift();
+        } else if(v2 === undefined){
+            obj.next = nums1.shift();
+        } else if(v1 - v2 < 0){
+            obj.next = nums1.shift();
+        } else {
+            obj.next = nums2.shift();
+        }
+
+        index++;
+    }
+
+    if(x1){
+        return (obj.next + obj.prev)/2;
+    } else {
+        return obj.next;
+    }
+};
+
+var start = Date.now();
+console.log(findMedianSortedArrays([1, 3], [2]), 2);
+console.log(findMedianSortedArrays([2, 3], []), 2.5);
+console.log(findMedianSortedArrays([1, 2], [3, 4]), 2.5);
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

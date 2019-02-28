@@ -1,0 +1,86 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    // 先去除两个以上连续的符号
+    var sLen = s.length;
+    var sIndex = 0;
+    var cLen = 1;
+    var cStr = '';
+    var sStr = ''; // 最后返回的
+    var nextC = '';
+
+    if(sLen <= 1){
+        return sLen;
+    }
+
+    // 没有循环到最后一个
+    while(sIndex + cLen <= sLen){
+        cStr = s.substr(sIndex, cLen);
+        nextC = s[sIndex + cLen];
+
+        // 如果cStr里面已经包含了该字符，就重新开始计数
+        // 
+        if(cStr.indexOf(nextC) != -1){
+            if(cStr.length - sStr.length > 0){
+                sStr = cStr;
+            }
+            sIndex++;
+            cLen--;
+        } else {
+            cLen++;
+        }
+    }
+
+    if(cStr.length - sStr.length > 0){
+        sStr = cStr;
+    }
+
+    return sStr.length;
+};
+
+var start = Date.now();
+console.log(lengthOfLongestSubstring('abcabcbb'), 3);
+console.log(lengthOfLongestSubstring('bbbbb'), 1);
+console.log(lengthOfLongestSubstring('pwwkew'), 3);
+console.log(lengthOfLongestSubstring('pw'), 2);
+console.log(lengthOfLongestSubstring('au'), 2);
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

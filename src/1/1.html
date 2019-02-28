@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+    var hash = {};
+    var i = 0;
+    var len = nums.length;
+    var num = '';
+
+    for(i; i<len;i++){
+        num = ''+nums[i];
+        if(hash[num]){
+            return [hash[num]-0, i];
+        } else {
+            hash[''+(target-num)] = ''+i;
+        }
+    }
+
+    return [];
+};
+var start = Date.now();
+console.log(twoSum([2, 7, 11, 15], 9), [0,1]);
+console.log(twoSum([2, 7, 11, 15], 18), [1,2]);
+console.log(twoSum([2, 7, 11, 15], 17), [0,3]);
+console.log(twoSum([0,4,3,0], 0), [0,3]);
+console.log(twoSum([-3,4,3,90], 0), [0,2]);
+console.log(twoSum([-3,4,3,90], 1), [0,1]);
+console.log(twoSum([-33,4,2,90], -31), [0,2]);
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>375</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var getMoneyAmount = function(n) {
+    var min = Math.round(n/2);
+    var max = n;
+    var value = min;
+    var bw = 0;
+
+    if(n == 1){
+        return 0;
+    }
+
+    while(min != max && (max - min >= 2)){
+        min = min + Math.floor((max - min)/2) + 1;
+        value += min;
+    }
+
+    return value;
+};
+
+console.log(getMoneyAmount(1) == 0);
+console.log(getMoneyAmount(2) == 1);
+console.log(getMoneyAmount(3) == 2);
+console.log(getMoneyAmount(4) == 4);
+console.log(getMoneyAmount(5) == 6);
+console.log(getMoneyAmount(6) == 8);
+console.log(getMoneyAmount(7) == 10);
+console.log(getMoneyAmount(8) == 12);
+console.log(getMoneyAmount(9) == 14);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

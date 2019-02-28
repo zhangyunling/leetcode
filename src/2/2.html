@@ -1,0 +1,111 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {
+    var ten = 0;
+    var result = {};
+    var cacheR = result;
+    var v1 = 0;
+    var v2 = 0;
+    var v = 0;
+
+    while(l1 || l2 || ten){
+        v1 = l1 ? l1.val : 0;
+        v2 = l2 ? l2.val : 0;
+
+        v = v1 + v2 + ten;
+
+        if(v >= 10){
+            ten = 1;
+            v = v - 10;
+        } else {
+            ten = 0;
+        }
+
+        cacheR.next = {
+            val : v,
+            next : null
+        };
+        cacheR = cacheR.next;
+
+        l1 = l1 ? l1.next : null;
+        l2 = l2 ? l2.next : null;
+    }
+
+    return result.next;
+
+};
+
+var start = Date.now();
+
+var a = {
+    val: 2,
+    next: {
+        val: 4,
+        next: {
+            val: 3,
+            next: null
+        }
+    },
+};
+var b = {
+    val: 5,
+    next: {
+        val: 6,
+        next: {
+            val: 4,
+            next: {
+                val: 2,
+                next: null
+            }
+        }
+    },
+}
+console.log(addTwoNumbers(a, b));
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
