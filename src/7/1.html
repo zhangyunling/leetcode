@@ -1,0 +1,62 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var maxNum = Math.pow(2,31);
+var reverse = function(x) {
+    var r = 0;
+    if (x < 0){
+        r =  0 - (''+(0-x)).split("").reverse().join("");
+
+        if(0 - maxNum - r > 0){
+            r = 0;
+        }
+    } else {
+        r =  ('' + x).split("").reverse().join("") - 0;
+        if(r - (maxNum - 1) > 0){
+            r = 0;
+        }
+    }
+
+    return r;
+};
+
+var start = Date.now();
+
+console.log(reverse("1534236469"), '1534236469');
+console.log(reverse("-123"), '-321');
+console.log(reverse("120"), '21');
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

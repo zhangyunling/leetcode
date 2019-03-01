@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var maxNum = Math.pow(2,31);
+var myAtoi = function(str) {
+	var num = parseInt(str) || 0;
+
+	if(num < 0 && num + maxNum < 0){
+		num  = 0 - maxNum;
+	}
+
+	if(num > 0 && num - (maxNum - 1) > 0){
+		num  = maxNum - 1;
+	}
+
+    return num;
+};
+
+var start = Date.now();
+
+console.log(myAtoi('   -42'), '-42');
+console.log(myAtoi('4193 with words'), '4193');
+console.log(myAtoi('words and 987'), '0');
+console.log(myAtoi('-91283472332'), '-2147483648');
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,57 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var maxArea = function(height) {
+    var len = height.length;
+    var i = 0;
+    var bw = len - 1;
+    var maxNum = 0;
+
+    while(bw){
+    	for(i = 0; i < (len - bw); i++){
+    		maxNum = Math.max(maxNum, (Math.min(height[i] , height[i + bw]) * bw ));
+    	}
+    	bw--;
+    } 
+
+    return maxNum;
+};
+
+var start = Date.now();
+
+console.log(maxArea([1,8,6,2,5,4,8,3,7]), '49');
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
