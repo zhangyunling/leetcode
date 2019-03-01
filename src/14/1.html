@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    var minLen = (strs[0] || '').length;
+
+    strs.forEach(function(item){
+        minLen = Math.min(item.length, minLen);
+    });
+
+    var i = 0;
+    var j = 0;
+    var len = strs.length;
+    var key = '';
+    var str = '';
+    var flag = false;
+
+    for(i=0;i<minLen;i++){
+        key = strs[0].charAt(i);
+        flag = true;
+        for(j = 1; j < len; j++){
+            if(strs[j].charAt(i) != key){
+                flag = false;
+                break;
+            }
+        }
+
+        if(flag){
+            str += key;
+        } else {
+            break;
+        }
+    }
+
+    return str;
+};
+
+var start = Date.now();
+
+ console.log(longestCommonPrefix(["flower","flow","flight"]), "fl");
+ console.log(longestCommonPrefix(["dog","racecar","car"]), "");
+console.log(longestCommonPrefix(["aca","cba"]), "");
+
+console.log(Date.now() - start);
+
+</script>
+</html>

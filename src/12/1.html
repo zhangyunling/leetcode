@@ -14,13 +14,6 @@
 <body>
 </body>
 <script>
-// I             1
-// V             5
-// X             10
-// L             50
-// C             100
-// D             500
-// M             1000
 var hash = {
     "1": "I",
     "2": "II",
@@ -43,7 +36,7 @@ var hash = {
     "100": "C",
     "200": "CC",
     "300": "CCC",
-    "400": "CD"
+    "400": "CD",
     "500": "D",
     "600": "DC",
     "700": "DCC",
@@ -51,43 +44,54 @@ var hash = {
     "900": "CM",
     "1000": "M"
 };
+var repeat = function(str, len){
+
+    if(len < 1){
+        return str;
+    }
+
+    var arr = [];
+    arr.length = len + 1;
+
+    return arr.join(str);
+};
 /**
  * @param {number} num
  * @return {string}
  */
 var intToRoman = function(num) {
-    
-};
+    var flag = 1000;
+    var str = "";
+    var v1 = 0;
 
-var romanToInt = function(s) {
-    if (!s){
-        return 0;
+    if(num - flag > 0){
+        v1 = Math.floor(num / flag);
+        str = repeat(hash[''+flag], v1);
+        num = num % flag;
     }
 
-    var sum = 0;
-    var prev = 0;
+    flag = 100;
 
-    s.split("").reverse().forEach(function(item){
-        var num = hash[item];
-
-        if(prev > num){
-            sum = sum - num;
-        } else {
-            sum = sum + num;
+    while (flag >= 1) {
+        v1 = Math.floor(num / flag);
+        if(v1){
+            str += hash[''+flag*v1];
         }
 
-        prev = num;
-    });
+        num = num % flag;
+        flag = flag / 10;
+    }
 
-    return sum;
+    return str;
 };
+
 var start = Date.now();
 
-console.log(romanToInt("III"), 3);
-console.log(romanToInt("IV"), 4);
-console.log(romanToInt("IX"), 9);
-console.log(romanToInt("LVIII"), 58);
-console.log(romanToInt("MCMXCIV"), 1994);
+console.log(intToRoman(3), "III");
+console.log(intToRoman(4), "IV");
+console.log(intToRoman(9), "IX");
+console.log(intToRoman(58), "LVIII");
+console.log(intToRoman(1994), "MCMXCIV");
 console.log(Date.now() - start);
 
 </script>
