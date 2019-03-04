@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var linkProxy = {
+    "2": ['a','b','c'],
+    "3": ['d','e','f'],
+    "4": ['g','h','i'],
+    "5": ['j','k','l'],
+    "6": ['m','n','o'],
+    "7": ['p','q','r','s'],
+    "8": ['t','u','v'],
+    "9": ['w','x','y','z']
+};
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function(digits) {
+    var arr = (''+digits).split("");
+    var result = [];
+
+    arr.forEach(function(item){
+        mergeArr(result, linkProxy[item]);
+    })
+
+    return result;
+};
+var mergeArr = function(arr1, arr2){
+    
+    if(!arr1.length){
+        Object.assign(arr1,arr2);
+        return arr1;
+    }
+
+    var len1 = arr1.length - 1;
+    var len2 = arr2.length - 1;
+    var key = '';
+
+    while(len1 >= 0){
+        key = arr1.splice(len1, 1)[0];
+        len2 = arr2.length - 1;
+        while(len2 >= 0){
+            arr1.splice(len1, 0 , (key+arr2[len2]));
+            len2--;
+        }
+        len1--;
+    }
+}
+
+var start = Date.now();
+
+console.log(letterCombinations(23),'["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]');
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

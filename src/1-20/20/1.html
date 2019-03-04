@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    var arr = [];
+    var len = s.length;
+    var i = 0;
+    var w = '';
+
+    while(i < len){
+        w = s[i];
+
+        if(w == "(" || w == "{" || w == "["){
+            arr.unshift(w);
+        } else if(w == ")" || w == "}" || w == "]"){
+            if((w == ")" && arr[0] == "(") || (w == "}" && arr[0] == "{") || (w == "]" && arr[0] == "[")){
+                arr.shift();
+            } else {
+                return false;
+            }
+        }
+
+        i++;
+    }
+
+    return !arr.length;
+};
+var start = Date.now();
+
+
+console.log(isValid('()'), true);
+console.log(isValid("()[]{}"), true);
+console.log(isValid("(]"), false);
+console.log(isValid("([)]"), false);
+console.log(isValid("{[]}"), true);
+
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

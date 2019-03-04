@@ -1,0 +1,150 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var reverseKGroup = function(head, k) {
+    // 边界条件，空链表
+    if(!head){
+        return null;
+    }
+
+    // 个数为1的链表
+    if(!head.next || k == 1){
+        return head;
+    }
+
+    var prev = head;
+    var cachePrev = null;
+    var next = null;
+    var cacheNext = null;
+    var headCache = null;
+    var resultHead = null;
+    var i = 0;
+    var flag = true;
+
+    while(prev){
+        i = 1;
+        next = prev;
+        while(i < k && next){
+            next = next.next;
+            if(next){
+                i++;
+            }
+        }
+
+        // 如果最后i != n，表示长度不够，就不需要进行转换
+        if(i !== k){
+            flag = false;
+            break;
+        }
+
+        // 保存当前需要转换的列表的第一个和最后一个
+        // 用于跟前一个和后一个转换区间，做关联
+        var p1 = prev;
+        var p2 = p1;
+        var p3 = p1; // 转换的header头
+
+        // 保存一下下一个列表的下一个
+        cacheNext = next && next.next;
+        cachePrev = prev;
+
+        // 旋转
+        i = 1;
+        while(i < k){
+            p2 = p1.next;
+            p1.next = p2.next;
+            p2.next = p3;
+            p3 = p2;
+            i++;
+        }
+
+        // 如果有前一个留下的尾元素指针，则直接把该元素指向next指针
+        // 如果没有的话，就直接设置为头指针；
+        if(headCache){
+            headCache.next = p3;
+        } else {
+            resultHead = p3;
+        }
+
+        // 保存当前的最后一个指针，供下一个转换使用
+        headCache = prev;
+
+        prev = cacheNext;
+    }
+
+    // 第一次的长度就不够的话
+    if(!flag && !resultHead){
+        resultHead = head;
+    }
+
+    return resultHead;
+};
+
+var start = Date.now();
+
+//1->2->4, 1->3->4
+console.log(reverseKGroup({
+    val: 1,
+    next: {
+        val: 2,
+        next: {
+            val: 3,
+            next: {
+                val: 4,
+                next: {
+                    val: 5,
+                    next: null
+                }
+            }
+        }
+    },
+}, 7));
+// console.log(reverseKGroup({
+//     val: 1,
+//     next: {
+//         val: 2,
+//         next: {
+//             val: 3,
+//             next: {
+//                 val: 4,
+//                 next: {
+//                     val: 5,
+//                     next: {
+//                         val: 6,
+//                         next: null
+//                     }
+//                 }
+//             }
+//         }
+//     },
+// }, 3));
+
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+
+ /**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function(nums, target) {
+    nums.sort(function(p1, p2){
+        return p1 - p2;
+    });
+
+    var len = nums.length;
+    var v1 = 0;
+    var v2 = v1+1;
+    var v3 = len - 1;
+    var v = 0;
+    var resultNum = nums[v1] + nums[v2] + nums[v3];
+    var getNextV = function(v, flag){
+        var vv = nums[v];
+        v = v + flag;
+
+        while(nums[v] === vv){
+            v = v + flag;
+        }
+
+        return v;
+    };
+    var bw = Math.abs(resultNum - target);
+
+    while(v1 < len-2){
+        while(v2 < v3){
+            v = nums[v1] + nums[v2] + nums[v3];
+            
+            if(v < target){
+                v2 = getNextV(v2, 1);
+            } else {
+                v3 = getNextV(v3, -1);
+            }
+
+            // 说明当前这次的值，是历史最近的；
+            if(Math.abs(v - target) - bw < 0){
+                bw = Math.abs(v - target);
+                resultNum = v;
+            }
+        }
+        v1 = getNextV(v1, 1);
+        v2 = v1 + 1;
+        v3 = len - 1;
+    }
+
+    return resultNum;
+};
+
+var start = Date.now();
+
+//console.log(threeSumClosest([-1,2,1,-4], 1));
+console.log(threeSumClosest([13,2,0,-14,-20,19,8,-5,-13,-3,20,15,20,5,13,14,-17,-7,12,-6,0,20,-19,-1,-15,-2,8,-2,-9,13,0,-3,-18,-9,-9,-19,17,-14,-19,-4,-16,2,0,9,5,-7,-4,20,18,9,0,12,-1,10,-17,-11,16,-13,-14,-3,0,2,-18,2,8,20,-15,3,-13,-12,-2,-19,11,11,-10,1,1,-10,-2,12,0,17,-19,-7,8,-19,-17,5,-5,-10,8,0,-12,4,19,2,0,12,14,-9,15,7,0,-16,-5,16,-12,0,2,-16,14,18,12,13,5,0,5,6], -59));
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>
