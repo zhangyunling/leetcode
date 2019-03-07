@@ -57,12 +57,14 @@ var getIntersectionNode = function(headA, headB) {
         bw = len1 - len2;
         while(i < bw){
             h1 = h1.next;
+            i++;
         }
         bw = len2;
     } else if(len1 < len2){
         bw = len2 - len1;
         while(i < bw){
             h2 = h2.next;
+            i++;
         }
         bw = len1;
     } else {
@@ -72,7 +74,7 @@ var getIntersectionNode = function(headA, headB) {
     i = 0;
     while(i< bw){
         if(h1 == h2){
-            return h1.val;
+            return h1;
         }
 
         h1 = h1.next;
@@ -83,18 +85,48 @@ var getIntersectionNode = function(headA, headB) {
 };
 
 var start = Date.now();
-var minStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-console.log(minStack.getMin(), -3);
-minStack.pop();
-console.log(minStack.top(), 0);
-console.log(minStack.getMin(), -2);
-
- 
-
+var obj = {
+    val: 8,
+    next: {
+        val: 4,
+        next: {
+            val: 5,
+            next: null
+        }
+    }
+};
+console.log(getIntersectionNode({
+    val: 4,
+    next: {
+        val: 1,
+        next: obj
+    }
+},{
+    val: 5,
+    next: {
+        val: 0,
+        next: {
+            val: 1,
+            next: obj
+        }
+    }
+}));
+console.log(getIntersectionNode({
+    val: 4,
+    next: {
+        val: 1,
+        next: obj
+    }
+},{
+    val: 5,
+    next: {
+        val: 0,
+        next: {
+            val: 1,
+            next: obj
+        }
+    }
+}));
 console.log((Date.now() - start)/1000);
-
 </script>
 </html>

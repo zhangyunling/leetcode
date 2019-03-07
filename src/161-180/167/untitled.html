@@ -1,0 +1,27 @@
+    1 -> A
+    2 -> B
+    3 -> C
+    ...
+    26 -> Z
+    27 -> AA
+    28 -> AB 
+    ...
+var proxy = ["Z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var convertToTitle = function(n) {
+    var s = '';
+    var v = n;
+
+    while(n > 26){
+        v = n%26;
+        s = proxy[v]+s;
+
+        n = Math.floor(v/26);
+    }
+
+    s = proxy[v]+s;
+};
