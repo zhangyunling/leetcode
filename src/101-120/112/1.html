@@ -1,0 +1,122 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {boolean}
+ */
+var hasPathSum = function(root, sum) {
+    if(!root){
+        return false;
+    }
+
+    var l = root.left;
+    var r = root.right;
+
+    if(!l && !r){
+        return root.val == sum;
+    } else if(!l && r){
+        return hasPathSum(r, sum - root.val);
+    } else if(l && !r){
+        return hasPathSum(l, sum - root.val);
+    } else {
+        return hasPathSum(l, sum - root.val) || hasPathSum(r, sum - root.val);
+    }
+};
+
+var start = Date.now();
+ console.log(hasPathSum({
+    val: 5,
+    left: {
+        val: 4,
+        left: {
+            val: 11,
+            left: {
+                val: 7,
+                left: null,
+                right: null,
+            },
+            right: {
+                val: 2,
+                left: null,
+                right: null,
+            },
+        },
+        right: null,
+    },
+    right: {
+        val: 8,
+        left: {
+            val: 13,
+            left: null,
+            right: null,
+        },
+        right: {
+            val: 4,
+            left: null,
+            right: {
+                val: 1,
+                left: null,
+                right: null,
+            },
+        },
+    }
+ }, 22));
+
+ console.log(hasPathSum({
+    val: 1,
+    left: {
+        val: 2,
+        left: null,
+        right: null,
+    },
+    right: null
+ }, 3));
+ console.log(hasPathSum({
+    val: 3,
+    left: {
+        val: 9,
+        left: null,
+        right: null,
+    },
+    right: {
+        val: 20,
+        left: {
+            val: 15,
+            left: null,
+            right: null,
+        },
+        right: {
+            val: 7,
+            left: null,
+            right: null,
+        },
+    }
+ }, 20));
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

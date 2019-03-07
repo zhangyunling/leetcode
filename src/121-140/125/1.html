@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var check = function(v){
+    return (v >= 97 && v <= 122) ||  (v >= 48 && v <= 57)
+}
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function(s) {
+    var i = 0;
+    var j = s.length - 1;
+    var v1 = '';
+    var v2 = '';
+    var r = true;
+    var c1 = false;
+    var c2 = false;
+
+    while(i < j){
+        v1 = s[i].toLowerCase().charCodeAt();
+        v2 = s[j].toLowerCase().charCodeAt();
+
+        if(v1 === v2){
+            i++;
+            j--;
+        } else {
+            c1 = check(v1);
+            c2 = check(v2);
+
+            if(c1 && c2){
+                r = false;
+                break;
+            } else if(!c1 && c2){
+                i++;
+            } else if(c1 && !c2){
+                j--;
+            } else {
+                i++;
+                j--;
+            }
+        }
+    }
+
+    return r;
+};
+
+var start = Date.now();
+ console.log(isPalindrome("A man, a plan, a canal: Panama"), true);
+
+ console.log(isPalindrome("race a car"), false);
+ 
+ 
+
+ 
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

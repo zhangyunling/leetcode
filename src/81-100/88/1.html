@@ -1,0 +1,62 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function(nums1, m, nums2, n) {
+    var i = 0;
+    var k1 = 0;
+    var k2 = 0;
+    m--;
+    n--;
+
+    while(m >= 0 || n >= 0){
+        k1 = m >= 0 ? nums1[m] : '';
+        k2 = n >= 0 ? nums2[n] : '';
+
+        if(k1 === '' && k2 === ''){
+            break;
+        } else if(k1 === ''){
+            nums1[m+n+1] = k2;
+            n--;
+        } else if(k2 === ''){
+            nums1[m+n+1] = k1;
+            m--;
+        } else if(k1 > k2){
+            nums1[m+n+1] = k1;
+            m--;
+        } else {
+            nums1[m+n+1] = k2;
+            n--;
+        }
+    }
+
+    return nums1;
+};
+
+var start = Date.now();
+ console.log(merge([1,2,3,0,0,0], 3, [2,5,6], 3));
+ console.log(merge([-1,0,0,3,3,3,0,0,0], 6, [1,2,2], 3));
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

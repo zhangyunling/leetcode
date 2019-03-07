@@ -1,0 +1,161 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var left = function(head){
+    var s = '';
+    var l = null;
+    var r = null;
+
+    if(!head){
+        return '#';
+    }
+
+    l = head.left;
+    r = head.right;
+
+    if(l){
+        s += l.val;
+    } else {
+        s += '#';
+    }
+
+    if(r){
+        s += r.val;
+    } else {
+        s += '#';
+    }
+
+    s += left(l);
+    s += left(r);
+
+    return s;
+};
+var right = function(head){
+    var s = '';
+    var l = null;
+    var r = null;
+
+    if(!head){
+        return '#';
+    }
+
+    l = head.left;
+    r = head.right;
+
+    if(r){
+        s += r.val;
+    } else {
+        s += '#';
+    }
+
+    if(l){
+        s += l.val;
+    } else {
+        s += '#';
+    }
+    
+    s += right(r);
+    s += right(l);
+
+    return s;
+}; 
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function(root) {
+    if(!root){
+        return true;
+    }
+
+    var l = root.left;
+    var r = root.right;
+
+    if(!l && !r){
+        return true;
+    } else if((l && !r) || (!l && r) || (l.val != r.val)){
+        return false;
+    }
+
+    var ls = left(l);
+    var rs = right(r);
+
+    return ls === rs;
+};
+
+var start = Date.now();
+ console.log(isSymmetric({
+    val: 1,
+    left: {
+        val: 2,
+        left: {
+            val: 3,
+            left: null,
+            right: null,
+        },
+        right: {
+            val: 4,
+            left: null,
+            right: null,
+        },
+    },
+    right: {
+        val: 2,
+        left: {
+            val: 4,
+            left: null,
+            right: null,
+        },
+        right: {
+            val: 3,
+            left: null,
+            right: null,
+        },
+    }
+ }));
+ console.log(isSymmetric({
+    val: 1,
+    left: {
+        val: 2,
+        left: null,
+        right: {
+            val: 3,
+            left: null,
+            right: null,
+        },
+    },
+    right: {
+        val: 2,
+        left: null,
+        right: {
+            val: 3,
+            left: null,
+            right: null,
+        },
+    }
+ }));
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

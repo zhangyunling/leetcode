@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function(head) {
+    var cache = {};
+    var p1 = head;
+    var p2 = null;
+    var v = '';
+
+    while(p1){
+        p2 = p1.next;
+        if(!p2){
+            break;
+        }
+
+        if(p2.val == p1.val){
+            p1.next = p2.next;
+        } else{
+            p1 = p2;
+        }
+    }
+
+    return head;
+};
+
+var start = Date.now();
+ console.log(deleteDuplicates({
+    val: 1,
+    next: {
+        val: 2,
+        next: {
+            val: 2,
+            next: null
+        }
+    }
+ }));
+ console.log(deleteDuplicates({
+    val: 1,
+    next: {
+        val: 1,
+        next: {
+            val: 2,
+            next: {
+                val: 3,
+                next: {
+                    val: 3,
+                    next: null
+                }
+            }
+        }
+    }
+ }));
+ 
+ 
+
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var getC = function(v1,v2){
+    var k1 = 1;
+    var k2 = 1;
+    var i = 0;
+
+    if(v2 == 0 || v1 == v2){
+        return 1;
+    }
+
+    while(i < v2){
+        k1 *= (v1-i);
+        k2 *= (v2-i);
+        i++;
+    }
+
+    return k1/k2;
+
+}
+/**
+ * @param {number} rowIndex
+ * @return {number[]}
+ */
+var getRow = function(rowIndex) {
+    var arr = [];
+    if(rowIndex == 0){
+        return [1];
+    }
+
+    if(rowIndex == 1){
+        return [1, 1];
+    }
+    var i = 0;
+
+    while(i <= rowIndex){
+        arr.push(getC(rowIndex, i));
+        i++;
+    }
+
+    return arr;
+};
+
+var start = Date.now();
+ console.log(getRow(5));
+
+ console.log(getRow(3));
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

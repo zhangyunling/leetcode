@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var CC = function(n, r){
+    var v1 = 1;
+    var v2 = 1;
+    var i = 0;
+
+    while(i < r){
+        v1 = v1*(n-i);
+        v2 = v2*(r-i);
+        i++; 
+    }
+
+    return v1/v2;
+
+}
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function(n) {
+    var sum = 1;
+    var min = Math.floor(n / 2);
+    var len = 0;
+
+    if(n <= 3){
+        return n;
+    }
+
+    while(min < n){
+        // 偶数个
+        if(min * 2 == n){
+            sum++;
+        } else{
+            // 整个的长度；
+            len = n - min;
+            sum += CC(min, len);
+        }
+        min++;
+    }
+
+    return sum;
+};
+
+var start = Date.now();
+ console.log(climbStairs(1), '1');
+ console.log(climbStairs(2), '2');
+ console.log(climbStairs(3), '3');
+ console.log(climbStairs(4), '5');
+ console.log(climbStairs(5), '8');
+ console.log(climbStairs(6), '13');
+ 
+ 
+
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>
