@@ -21,7 +21,11 @@ var check = function(n){
         k = n % 10;
         n = Math.floor(n / 10);
 
-        v += Math.pow(k);
+        v += Math.pow(k, 2);
+    }
+
+    while(v && (v%10 == 0)){
+        v = v/10;
     }
 
     return v;
@@ -32,17 +36,25 @@ var check = function(n){
  */
 var isHappy = function(n) {
     var v = check(n);
+    var cache = {};
 
-    if(!v){
+    if(v == 1){
         return true;
     }
 
-    while(n != v){
+    while(v && n != v){
         v = check(v);
-
+        
         if(v == 1){
             return true;
         }
+
+        if(cache[''+v]){
+            return false;
+        } else {
+            cache[''+v] = 1;
+        }
+
     }
 
     return false;
@@ -51,7 +63,8 @@ var isHappy = function(n) {
 var start = Date.now();
 
 console.log(isHappy(19), 'true');
- console.log(isHappy(2), 'false');
+console.log(isHappy(2), 'false');
+console.log(isHappy(3), 'false');
 
 
 
