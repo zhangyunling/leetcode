@@ -14,37 +14,46 @@
 <body>
 </body>
 <script>
-var proxy = ["Z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var check = function(n){
+    var v = 0;
+    var k = 0;
+    while(n){
+        k = n % 10;
+        n = Math.floor(n / 10);
 
+        v += Math.pow(k);
+    }
+
+    return v;
+}
 /**
  * @param {number} n
- * @return {string}
+ * @return {boolean}
  */
-var convertToTitle = function(n) {
-    var s = '';
-    var v = n;
+var isHappy = function(n) {
+    var v = check(n);
 
-    while(n >= 26){
-        v = n%26;
-        s = proxy[v]+s;
-        
-        n = Math.floor(n/26);
+    if(!v){
+        return true;
     }
 
-    if(n){
-        s = proxy[n] + s;
+    while(n != v){
+        v = check(v);
+
+        if(v == 1){
+            return true;
+        }
     }
 
-    return s;
+    return false;
 };
 
 var start = Date.now();
 
-console.log(convertToTitle(1), 'A');
-console.log(convertToTitle(28), 'AB');
-console.log(convertToTitle(29), 'AC');
-console.log(convertToTitle(701), 'ZY');
-console.log(convertToTitle(52), 'AZ');
+console.log(isHappy(19), 'true');
+ console.log(isHappy(2), 'false');
+
+
 
 console.log((Date.now() - start)/1000);
 </script>

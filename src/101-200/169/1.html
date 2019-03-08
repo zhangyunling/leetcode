@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    var len = nums.length;
+
+    if(len <= 2){
+        return nums[0];
+    }
+
+    nums.sort();
+
+    if(len%2 == 0){
+        return nums[len/2-1];
+    } else {
+        return nums[Math.floor(len/2)]
+    }
+};
+
+var start = Date.now();
+
+console.log(majorityElement([3,2,3]), '3');
+console.log(majorityElement([2,2,1,1,1,2,2]), '2');
+console.log(majorityElement([3,3,4]), '3');
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>
