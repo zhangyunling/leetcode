@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+var reverseString = function(s) {
+    var i = 0;
+    var len = s.length;
+
+    if(len <= 1){
+        return s;
+    }
+    var m = Math.floor(len / 2);
+    var v = '';
+    while(i < m){
+        v = s[i];
+        s[i] = s[len-i-1];
+        s[len-i-1] = v;
+        i++;
+    }
+
+    return s;
+};
+
+var start = Date.now();
+
+console.log(reverseString(["h","e","l","l","o"]), '["o","l","l","e","h"]')
+console.log(reverseString(["H","a","n","n","a","h"]), '["h","a","n","n","a","H"]')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

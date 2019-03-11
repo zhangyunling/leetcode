@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var findNthDigit = function(n) {
+    if(n < 10){
+        return n;
+    } else if(n == 10){
+        return 1;
+    }
+
+    var i = 2;
+    var nn = 9;
+    var b = 10;
+    var flag = true;
+    var f = 1;
+
+    while(flag){
+        nn = nn + i * b * f;
+
+        if(nn >= n){
+            flag = false;
+            nn = nn - i * b * f;
+        } else {
+            if(f === 9){
+                f = 1;
+                i++;
+                b = b * 10
+            } else {
+                f++;
+            }
+        }
+    }
+
+    // 剩余的；
+    nn = n - nn;
+    
+    // b最后的位置
+    b = b*f + Math.floor(nn/i) - 1;
+    
+    i = nn % i;
+    if(i == 0){
+        return b % 10;
+    } 
+
+    b++;
+    return (''+b).charAt(i-1)
+};
+
+var start = Date.now();
+
+console.log(findNthDigit(3), '3')
+console.log(findNthDigit(10), '1')
+console.log(findNthDigit(11), '0')
+console.log(findNthDigit(14), '1')
+console.log(findNthDigit(21), '5')
+console.log(findNthDigit(29), '9')
+console.log(findNthDigit(29), '9')
+console.log(findNthDigit(191), '0')
+console.log(findNthDigit(30), '2')
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+    if(!head){
+        return null;
+    }
+
+    if(!head.next){
+        return head;
+    }
+
+    var h1 = head;
+    var h2 = head.next;
+    var h3 = null;
+
+    while(h2){
+        h3 = h2.next;
+
+        h2.next = h1;
+        h1 = h2;
+        h2 = h3;
+    }
+
+    return h1;
+};
+
+var start = Date.now();
+
+console.log(reverseList({
+    val: 1,
+    next: {
+        val: 2,
+        next: {
+            val: 3,
+            next: {
+                val: 4,
+                next: {
+                    val: 5,
+                    next: null
+                }
+            }
+        }
+    }
+}));
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

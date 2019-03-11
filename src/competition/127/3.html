@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+function F(){}
+
+var a = new F();
+
+console.log(a.constructor == F);
+console.log(a.__proto__ == F.prototype);
+console.log(a.prototype);
+console.log(F.prototype == Function.prototype)
+console.log(F.__proto__ == Function.prototype)
+console.log(F.__proto__.prototype == Function.prototype)
+
+var start = Date.now();
+
+console.log(toHex(26), '1a')
+console.log(toHex(-1), 'ffffffff')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

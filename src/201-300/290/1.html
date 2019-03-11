@@ -1,0 +1,72 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} pattern
+ * @param {string} str
+ * @return {boolean}
+ */
+var wordPattern = function(pattern, str) {
+    var arr1 = pattern.split("");
+    var arr2 = str.split(" ");
+    var len1 = arr1.length;
+    var len2 = arr2.length;
+    var c1 = {};
+    var c2 = {};
+    var r = true;
+
+    if(!len1 || (len1 != len2)){
+        return false;
+    }
+
+    arr1.forEach(function(item, index){
+        var v1 = item;
+        var v2 = arr2[index];
+        var cv1 = c1[v1];
+        var cv2 = c2[v2];
+
+        if(cv1){
+            if(v2 != cv1){
+                r = false;
+                return false;
+            }
+        } else {
+            c1[v1] = v2;
+        }
+
+        if(cv2){
+            if(v1 != cv2){
+                r = false;
+                return false;
+            }
+        } else {
+            c2[v2] = v1;
+        }
+    });
+
+    return r;
+};
+
+var start = Date.now();
+
+console.log(wordPattern("abba", "dog cat cat dog"), 'true');
+console.log(wordPattern("abba", "dog cat cat fish"), 'false');
+console.log(wordPattern("aaaa", "dog cat cat dog"), 'false');
+console.log(wordPattern("abba", "dog dog dog dog"), 'false');
+console.log(wordPattern("ab", "dog dog"), 'false');
+console.log((Date.now() - start)/1000);
+</script>
+</html>

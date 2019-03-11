@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} ransomNote
+ * @param {string} magazine
+ * @return {boolean}
+ */
+var canConstruct = function(ransomNote, magazine) {
+    var arr1 = ransomNote.split("");
+    var arr2 = magazine.split("");
+    var len1 = arr1.length;
+    var len2 = arr2.length;
+    var i = 0;
+    var len = Math.min(len1, len2);
+    var v = '';
+    var index = 0;
+
+    if(len1 > len2){
+        return false;
+    }
+
+    while(i < len){
+        v = arr1[i];
+        index = arr2.indexOf(v);
+        if(index != -1){
+            arr2.splice(index, 1);
+        } else {
+            return false;
+        }
+
+        i++;
+    }
+
+    return true;
+};
+
+var start = Date.now();
+
+console.log(canConstruct('a', 'b'), 'false')
+console.log(canConstruct("aa", "ab"), 'false')
+console.log(canConstruct("aa", "aab"), 'true')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersect = function(nums1, nums2) {
+    var len1 = nums1.length;
+    var len2 = nums2.length;
+    var arr1 = len1 > len2 ? nums2 : nums1;
+    var arr2 = len1 > len2 ? nums1 : nums2;
+    var arr = [];
+    var i = 0;
+    var len = Math.min(len1, len2);
+    var v = '';
+    var index = 0;
+
+    while(i < len){
+        v = arr1[i];
+        index = arr2.indexOf(v);
+        if(index != -1){
+            arr2.splice(index, 1)
+            arr.push(v);
+        }
+
+        i++;
+    }
+
+    return arr;
+};
+
+var start = Date.now();
+
+console.log(intersect([1,2,2,1], [2,2]), '[2,2]')
+console.log(intersect([4,9,5], [9,4,9,8,4]), '[9,4]')
+console.log(intersect([3,1,2], [1,1]), '[1]')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

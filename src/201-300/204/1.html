@@ -28,10 +28,16 @@ var countPrimes = function(n) {
     }
 
     var arr = [2,3];
-    var i = 5;
+    var i = 7;
     var j = 0;
     var len = 0;
     var flag = true;
+    var rlen = 2;
+
+    if(n > 5){
+        arr.push(5);
+        rlen = 3;
+    }
 
     while(i < n){
         j = 1;
@@ -47,12 +53,13 @@ var countPrimes = function(n) {
 
         if(flag){
             arr.push(i);
+            rlen++;
         }
 
         i = i + 2;
     }
 
-    return arr.length;
+    return rlen;
 };
 
 var start = Date.now();
