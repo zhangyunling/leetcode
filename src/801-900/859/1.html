@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {string} A
+ * @param {string} B
+ * @return {boolean}
+ */
+var buddyStrings = function(A, B) {
+    var l1 = A.length;
+    var l2 = B.length;
+    var i = 0;
+
+    if(l1 != l2 || l1 < 2){
+      return false;
+    }
+
+    if(A == B){
+      return (/(.).*\1/g).test(A)
+    }
+
+    var s1 = '';
+    var s2 = '';
+    while(i < l1){
+      if(A[i] != B[i]){
+        s1 = A[i] + s1;
+        s2 = s2 + B[i];
+      }
+      i++;
+    }
+
+    return s1 == s2 && s1.length == 2;
+};
+var start = Date.now();
+
+console.log(buddyStrings("ab", "ba"), 'true');
+console.log(buddyStrings("ab", "ab") , 'false');
+console.log(buddyStrings("aa", "aa") , 'true');
+console.log(buddyStrings("aaaaaaabc", "aaaaaaacb") , 'true');
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

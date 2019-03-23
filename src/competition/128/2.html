@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} time
+ * @return {number}
+ */
+var numPairsDivisibleBy60 = function(time) {
+    var i = 0;
+    var j = 1;
+    var len = time.length;
+    var r = 0;
+
+    while(i < len-1){
+        j = i+1;
+        while(j < len){
+            if((time[i] + time[j]) % 60 == 0){
+                r++;
+            }
+            j++;
+        }
+        i++;
+    }
+
+    return r;
+};
+
+var start = Date.now();
+
+console.log(numPairsDivisibleBy60([30,20,150,100,40]), '3')
+console.log(numPairsDivisibleBy60([60,60,60]), '3')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

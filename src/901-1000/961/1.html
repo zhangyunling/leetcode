@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+var qSort = function(A, l, r){
+    var len = A.length;
+    var v1 = 0;
+    var i1 = l;
+    var i2 = r-2;
+    var i = r-1;
+    var v = A[i];
+    var N = len/2;
+    // 个数
+
+    if(i1 >= i2){
+        return;
+    }
+    
+    while(i1 < i2){
+        // 如果相等，直接就返回得了；
+        // 一次if判断，降低一些性能；
+
+        if(A[i2] == v || A[i1] == v){
+            return v;
+        }
+
+        while(i1 < i2 && A[i1] < v){
+            i1++;
+        }
+        
+        A[i] = A[i1];
+        i = i1;
+
+        while(i1 < i2 && A[i2] >= v){
+            i2--;
+        }
+        
+        A[i] = A[i2];
+        i = i2;   
+    }
+
+    A[i] = v;
+
+    if(i == N){
+        return v;
+    } else if(i < N){
+        return qSort(A, i, len);
+    } else {
+        return qSort(A, 0, i);
+    }
+}
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var repeatedNTimes = function(A) {
+    var i = 0;
+    var len = A.length;
+    var v = '';
+
+    while(i < len-1){
+        v = A[i];
+        if(v == A[i+1] || v == A[i+2] || v == A[i+3]){
+            return v;
+        }
+        i++;
+    }
+
+    return '111';
+};
+
+
+
+console.log(repeatedNTimes([1,2,3,3]),'3')
+console.log(repeatedNTimes([2,1,2,5,3,2]),'2')
+ console.log(repeatedNTimes([5,1,5,2,5,3,5,4]),'5')
+console.log(repeatedNTimes([2,6,2,1]),'2')
+console.log(repeatedNTimes([9,5,3,3]),'3')
+console.log(repeatedNTimes([3,0,1,1,2,1,7,1]),'1')
+console.log(repeatedNTimes([9,5,6,9]),'9');
+
+
+
+
+
+
+var start = Date.now();
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

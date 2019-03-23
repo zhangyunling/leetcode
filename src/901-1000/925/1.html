@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {string} name
+ * @param {string} typed
+ * @return {boolean}
+ */
+var isLongPressedName = function(name, typed) {
+    var i = 0;
+    var l1 = name.length;
+    var l2 = typed.length;
+    var s1 = name;
+    var s2 = typed;
+    var v = '';
+    var v1= '';
+
+    if(l1 > l2){
+        return false;
+    } else if(l1 == l2){
+        if(name != typed){
+            return false;
+        }
+        return true;
+    } else if(s1[0] != s2[0]){
+        return false;
+    }
+
+    while(i < l1){
+
+        if(s1[0] == s2[0]){
+            v = s1[0];
+            s1 = s1.substring(1);
+            s2 = s2.substring(1);
+            if(s1[0] != v){
+                while(s2 && s2.indexOf(v) == 0){
+                    s2 = s2.substring(1);
+                }
+            }
+        } else {
+            return false;
+        }
+        
+        i++;
+    }
+
+    if(s1.length){
+        return false;
+    } else {
+        return true;
+    }
+};
+var start = Date.now();
+
+console.log(isLongPressedName("alex", "aaleex"),'true');
+console.log(isLongPressedName("saeed", "ssaaedd"),'false');
+console.log(isLongPressedName("leelee", "lleeelee"),'true');
+console.log(isLongPressedName("laiden", "laiden"),'true');
+
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

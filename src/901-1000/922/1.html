@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortArrayByParityII = function(A) {
+    var len = A.length;
+
+    if(len %2 == 1){
+        return null;
+    }
+
+    var i = 0;
+    var j = len-1;
+    var v1 = 0;
+    var v2 = 0;
+    var i2 = 0;
+
+    while(i < j){
+        while(i%2 == A[i]%2){
+            i++;
+        }
+        while(j%2 == A[j]%2){
+            j--;
+        }
+
+        if(i < j){
+            // 如果，当前的值，是完全相等的；
+            // 此时，对于i处的值，给执行i++;
+            i2 = 0;
+            if(A[i]%2 == A[j]%2){
+                while(A[i]%2 == A[j]%2){
+                    v1 = A[i];
+                    A[i] = A[i+i2];
+                    A[i+i2] = v1;
+                    i2++;
+                }
+                i++;
+            } else {
+                v1 = A[i];
+                A[i] = A[j];
+                A[j] = v1;
+                i++;
+                j--;
+            }
+        }
+    }
+
+    return A;
+};
+var start = Date.now();
+
+console.log(sortArrayByParityII([4,2,5,7]),'[4,5,2,7]');
+console.log(sortArrayByParityII([2,3]),'[2,3]');
+console.log(sortArrayByParityII([2,3,1,1,4,0,0,4,3,3]),'[2,3,0,1,4,1,0,3,4,3]');
+
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

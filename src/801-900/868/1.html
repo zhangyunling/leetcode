@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var binaryGap = function(N) {
+   	var s = N.toString(2);
+   	var i = 0;
+   	var len = s.length;
+   	var max = 0;
+   	var flag = 0;
+   	var v = '';
+
+   	while(i < len){
+   		v = s[i];
+
+   		if(v == '1'){
+   			if(flag){
+   				max = Math.max(max, flag);
+   				flag = 1;
+   			} else {
+   				flag++;
+   			}
+   		} else if(flag){
+   			flag++;
+   		}
+
+   		i++;
+   	}
+
+   	return max;
+};
+var start = Date.now();
+
+console.log(binaryGap(22), '2');
+console.log(binaryGap(5) , '2');
+console.log(binaryGap(6) , '1');
+console.log(binaryGap(8) , '0');
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

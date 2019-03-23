@@ -1,0 +1,139 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var walk = function(node, info){
+    if(!node){
+        return;
+    }
+
+    if(node.val == info.x){
+        info.xn = true;
+    } else if(node.val == info.y){
+        info.yn = true;
+    }
+
+    if(info.xn && info.yn){
+        return;
+    }
+
+    if(!info.xn){
+        info.xk++;
+        info.xp = node;
+    }
+
+    if(!info.yn){
+        info.yk++;
+        info.yp = node;
+    }
+
+    walk(node.left, info);
+    walk(node.right, info);
+}
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+var isCousins = function(root, x, y) {
+    var info = {
+        x: x,
+        xp: root,
+        xk: 0,
+        xn: false,
+        y: y,
+        yp: root,
+        yk: 0,
+        yn: false,
+    };
+
+    walk(root, info);
+
+    console.log(info);
+    if(info.xp != info.yp && info.xk == info.yk){
+        return true;
+    } else {
+        return false;
+    }
+
+};
+var start = Date.now();
+console.log(isCousins({
+    val: 1,
+    left: {
+        val: 2,
+        left: {
+            val: 4,
+            left: null,
+            right: null,
+        },
+        right: null
+    },
+    right: {
+        val: 3,
+        left: null,
+        right: null,
+    },
+}, 4, 3),'false')
+console.log(isCousins({
+    val: 1,
+    left: {
+        val: 2,
+        left: null,
+        right: {
+            val: 4,
+            left: null,
+            right: null,
+        }
+    },
+    right: {
+        val: 3,
+        left: null,
+        right: {
+            val: 5,
+            left: null,
+            right: null,
+        },
+    },
+}, 5, 4),'true')
+console.log(isCousins({
+    val: 1,
+    left: {
+        val: 2,
+        left: null,
+        right: {
+            val: 4,
+            left: null,
+            right: null,
+        }
+    },
+    right: {
+        val: 3,
+        left: null,
+        right: null,
+    },
+}, 2, 3),'false')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

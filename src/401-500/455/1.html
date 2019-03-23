@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} g
+ * @param {number[]} s
+ * @return {number}
+ */
+var findContentChildren = function(g, s) {
+    g.sort((p1,p2) => p1-p2);
+    s.sort((p1,p2) => p1-p2);
+
+    var i = 0;
+    var j = 0;
+    var l1 = g.length;
+    var l2 = s.length;
+    var r = 0;
+
+    while(i < l1 && j < l2){
+        if(s[j] - g[i] >= 0){
+            r++;
+            i++;
+            j++;
+        } else {
+            j++;
+        }
+    }
+
+    return r;
+};
+var start = Date.now();
+console.log(findContentChildren([1,2,3], [1,1]),'1')
+console.log(findContentChildren([1,2], [1,2,3]),'2')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

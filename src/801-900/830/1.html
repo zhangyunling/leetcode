@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} S
+ * @return {number[][]}
+ */
+var largeGroupPositions = function(S) {
+    var i = 0;
+    var len = 0;
+    var arr = [];
+    var v = '';
+    var index = 0;
+    var p = 0;
+
+    var list = S.match(/(.)\1{2,}/g);
+    if(!list){
+      return [];
+    }
+    len = list.length;
+
+    while(i < len){
+      v = list[i];
+      p = S.indexOf(v, index);
+      arr.push([p, p + v.length - 1]);
+      index = p + v.length;
+      i++;
+    }
+
+    return arr;
+
+};
+var start = Date.now();
+
+console.log(largeGroupPositions('abbxxxxzzy'), '[[3,6]]');
+console.log(largeGroupPositions('abc'), '[]');
+console.log(largeGroupPositions('abcdddeeeeaabbbcd'), '[[3,5],[6,9],[12,14]]');
+console.log(largeGroupPositions('rmmzrrpxxxxvvvvvqzeeedhhhnnbbggttdddppdddfffffmmyy'), '[[7,10],[11,15],[18,20],[22,24],[33,35],[38,40],[41,45]]');
+console.log((Date.now() - start)/1000);
+</script>
+</html>

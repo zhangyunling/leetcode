@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} S
+ * @param {character} C
+ * @return {number[]}
+ */
+var shortestToChar = function(S, C) {
+    var arr = [];
+    var arr2 = [];
+    var index = S.indexOf(C, 0);
+    var i1 = 0;
+    var i2 = 0;
+    var v1 = 0;
+    var v2 = 0;
+
+    while(index != -1){
+      arr.push(index);
+      index = S.indexOf(C, index+1);
+    }
+
+    var l1 = arr.length;
+    var l2 = S.length;
+    while(i1 < l1 && i2 < l2){
+      v1 = arr[i1];
+      if(i2 <= v1){
+        arr2.push(v1 - i2);
+      } else {
+        v2 = arr[i1+1];
+        if(i2 - v1 >= v2 - i2){
+          arr2.push(v2 - i2);
+          i1++;
+        } else {
+          arr2.push(i2 - v1);
+        }
+      }
+      i2++;
+    }
+
+    while(i2 < l2){
+      arr2.push(i2 - v1);
+      i2++;
+    }
+
+    return arr2;
+};
+var start = Date.now();
+
+console.log(shortestToChar("loveleetcodedd", 'e'), '[3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0,1,2]');
+console.log((Date.now() - start)/1000);
+</script>
+</html>

@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} paragraph
+ * @param {string[]} banned
+ * @return {string}
+ */
+var mostCommonWord = function(paragraph, banned) {
+    var arr = paragraph.toLocaleLowerCase().split(/[^a-zA-Z]+/g).sort();
+    var i = 0;
+    var len = arr.length;
+    var obj = {
+      s: '',
+      max: 0,
+      str: '',
+      num: 0
+    };
+    var v = '';
+
+    while(i < len){
+      v = arr[i];
+
+      if(v && banned.indexOf(v) == -1){
+        if(v == obj.str){
+          obj.num++;
+        } else {
+          if(obj.max < obj.num){
+            obj.max = obj.num;
+            obj.s = obj.str;
+          }
+
+          obj.str = v;
+          obj.num = 0;
+        }
+      }
+
+      i++;
+    }
+
+    if(obj.max < obj.num){
+      obj.max = obj.num;
+      obj.s = obj.str;
+    }
+
+    return obj.s || obj.str;
+};
+var start = Date.now();
+
+console.log(mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", ["hit"]), 'ball');
+console.log(mostCommonWord("a.", []), 'a');
+console.log(mostCommonWord("L, P! X! C; u! P? w! P. G, S? l? X? D. w? m? f? v, x? i. z; x' m! U' M! j? V; l. S! j? r, K. O? k? p? p, H! t! z' X! v. u; F, h; s? X? K. y, Y! L; q! y? j, o? D' y? F' Z; E? W; W' W! n! p' U. N; w? V' y! Q; J, o! T? g? o! N' M? X? w! V. w? o' k. W. y, k; o' m! r; i, n. k, w; U? S? t; O' g' z. V. N? z, W? j! m? W! h; t! V' T! Z? R' w, w? y? y; O' w; r? q. G, V. x? n, Y; Q. s? S. G. f, s! U? l. o! i. L; Z' X! u. y, Q. q; Q, D; V. m. q. s? Y, U; p? u! q? h? O. W' y? Z! x! r. E, R, r' X' V, b. z, x! Q; y, g' j; j. q; W; v' X! J' H? i' o? n, Y. X! x? h? u; T? l! o? z. K' z' s; L? p? V' r. L? Y; V! V' S. t? Z' T' Y. s? i? Y! G? r; Y; T! h! K; M. k. U; A! V? R? C' x! X. M; z' V! w. N. T? Y' w? n, Z, Z? Y' R; V' f; V' I; t? X? Z; l? R, Q! Z. R. R, O. S! w; p' T. u? U! n, V, M. p? Q, O? q' t. B, k. u. H' T; T? S; Y! S! i? q! K' z' S! v; L. x; q; W? m? y, Z! x. y. j? N' R' I? r? V! Z; s, O? s; V, I, e? U' w! T? T! u; U! e? w? z; t! C! z? U, p' p! r. x; U! Z; u! j; T! X! N' F? n! P' t, X. s; q'", ["m","i","s","w","y","d","q","l","a","p","n","t","u","b","o","e","f","g","c","x"]), 'z');
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

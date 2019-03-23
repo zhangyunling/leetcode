@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {number[]} deck
+ * @return {boolean}
+ */
+var hasGroupsSizeX = function(deck) {
+    var cache = {};
+    var i = 0;
+    var len = deck.length;
+    var v = '';
+    var k = 2;
+    var min = 0;
+
+    if(len < 2){
+        return false;
+    }
+
+    while(i < len){
+        v = ''+deck[i];
+
+        if(!cache[v]){
+            cache[v] = 0;
+        }
+
+        cache[v] = cache[v] + 1;
+        i++;
+    }
+
+    
+
+    // 求出最小的值
+    for(i in cache){
+        if(min){
+            min = Math.min(cache[i], min);
+        } else {
+            min = cache[i];
+        }
+    }
+    
+    while(k <= min){
+
+        if(!(len%k) && !(min%k)){
+            v = true;
+            for(i in cache){
+                if(cache[i]%k){
+                    v = false;
+                    break;
+                }
+            }
+
+            if(v){
+                return true;
+            }
+        }
+        
+        k++;
+    }
+
+    return false;
+};
+var start = Date.now();
+
+console.log(hasGroupsSizeX([1,2,3,4,4,3,2,1]) == true);
+console.log(hasGroupsSizeX([1,1,1,2,2,2,3,3]) == false);
+console.log(hasGroupsSizeX([1]) == false);
+console.log(hasGroupsSizeX([1,1]) == true);
+console.log(hasGroupsSizeX([1,1,2,2,2,2]) == true);
+console.log(hasGroupsSizeX([0,0,0,1,1,1,2,2,2]) == true);
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

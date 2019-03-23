@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var largestPerimeter = function(A) {
+	var len = A.length;
+	if(len < 3){
+		return 0;
+	}
+
+    A.sort(function(p1, p2){
+    	return p2 - p1;
+    });
+
+    var i = 0;
+    var v1 = 0;
+    var v2 = 0;
+    var v3 = 0;
+
+    while(i < len - 2){
+    	v1 = A[i];
+    	v2 = A[i+1];
+    	v3 = A[i+2];
+
+    	if((v3 + v1 > v2) && (v1 - v3 < v2)){
+    		return v1 + v2 + v3;
+    	}
+
+    	i++;
+    }
+
+    return 0;
+
+};
+
+console.log(largestPerimeter([2,1,2]),'5')
+console.log(largestPerimeter([1,2,1]),'0')
+console.log(largestPerimeter([3,2,3,4]),'10')
+console.log(largestPerimeter([3,6,2,3]),'8')
+
+
+
+var start = Date.now();
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

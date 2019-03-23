@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {number} A
+ * @param {number} B
+ * @return {string}
+ */
+var strWithout3a3b = function(A, B) {
+    var i = 0;
+    var j = 0;
+    var max = Math.max(A, B);
+    var min = Math.min(A, B);
+    var v1 = Math.floor(max/min);
+    var v2 = max % min;
+
+    // 如果大的比小的，大于二倍，并且二倍之后，超出2个，那么错误
+    if(v1 >= 2 && v2 > 2){
+        return null;
+    }
+
+    var l1 = max - min;
+    var l2 = 2*min - max;
+    var w1 = max == A ? 'a' : 'b';
+    var w2 = w1 == 'a' ? 'b' : 'a';
+    var i = 0;
+    var s = '';
+
+    // 表示超出了，那么l1的大小为短的那个；
+    if(v1 >= 2){
+        l1 = min;
+        l2 = 0;
+        v2 = max - 2 * min;
+    }
+
+    while(l1 > 0 && i < l1){
+        s += w1+w1+w2;
+        i++;
+    }
+
+    i = 0;
+    while(l2 > 0 && i < l2){
+        s += w1+w2;
+        i++;
+    }
+
+    if(v1 >= 2 && v2){
+        i = 0;
+        while(i < v2){
+            s += w1;
+            i++;
+        }
+    }
+
+    return s;
+};
+
+var a = [1,2,3];
+
+console.log(strWithout3a3b(1,2),'abb')
+console.log(strWithout3a3b(4,1),'aabaa')
+
+
+var start = Date.now();
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

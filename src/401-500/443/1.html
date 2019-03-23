@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {character[]} chars
+ * @return {number}
+ */
+var compress = function(chars) {
+    var len = chars.length;
+    if(len <= 1){
+        return len;
+    }
+    var last = '';
+    var num = 0;
+    var numS = '';
+    var i = 0;
+    var ii=0;
+    var v = '';
+    var j = 0;
+    var nLen = 0;
+
+    for(i; i<len;i++){
+        v = chars[i];
+        if(last == v){
+            num++;
+        } else {
+            last = v;
+            if(num > 1){
+                numS = '' + num;
+                ii = 0;
+                nLen = numS.length;
+                while(ii < nLen){
+                    chars[j] = numS[ii];
+                    j++;
+                    ii++;
+                }
+            }
+            chars[j] = v;
+            j++;
+            num = 1;
+        }
+    }
+
+    if(num > 1){
+        numS = '' + num;
+        ii = 0;
+        nLen = numS.length;
+        while(ii < nLen){
+            chars[j] = numS[ii];
+            j++;
+            ii++;
+        }
+    }
+
+    chars.length = j;
+
+    return j;
+};
+var start = Date.now();
+
+console.log(compress(["a","a","b","b","c","c","c"]), '6')
+console.log(compress(["a"]), '1')
+console.log(compress(["a","b","b","b","b","b","b","b","b","b","b","b","b"]), '4')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var check = function(arr, j , i){
+  var v1 = arr[i][j] + arr[i][j+1] + arr[i][j+2];
+  var v2 = arr[i+1][j] + arr[i+1][j+1] + arr[i+1][j+2];
+  var v3 = arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2];
+  var v4 = arr[i][j] + arr[i+1][j] + arr[i+2][j];
+  var v5 = arr[i][j+1] + arr[i+1][j+1] + arr[i+2][j+1];
+  var v6 = arr[i][j+2] + arr[i+1][j+2] + arr[i+2][j+2];
+  var v7 = arr[i][j] + arr[i+1][j+1] + arr[i+2][j+2];
+  var v8 = arr[i+2][j] + arr[i+1][j+1] + arr[i][j+2];
+  var same = v1 == v2 && v1 == v3 && v1 == v4 && v1 == v5 && v1 == v6 && v1 == v7 && v1 == v8;
+  var all = true;
+  var v = ''+arr[i][j] + arr[i][j+1] + arr[i][j+2] + arr[i+1][j] + arr[i+1][j+1] + arr[i+1][j+2] + arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2];
+  var i = 0;
+
+
+  while(i < 9){
+    if(v.indexOf(i+1) == -1){
+      all = false;
+      break;
+    }
+    i++;
+  }
+
+  return all && same && v.length == 9;
+}
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var numMagicSquaresInside = function(grid) {
+    var i = 0;
+    var j = 0;
+    var l2 = grid.length;
+    var l1 = grid[0].length;
+    var r = 0;
+
+    while(i < l1-2){
+      j = 0;
+      while(j < l2-2){
+        if(check(grid, i , j)){
+          r++;
+        }
+        j++;
+      }
+      i++;
+    }
+    return r;
+};
+var start = Date.now();
+
+console.log(numMagicSquaresInside([[4,3,8,4],[9,5,1,9],[2,7,6,2]]), '1');
+console.log(numMagicSquaresInside([[8,1,6],[3,5,7],[4,9,2]]), '1');
+console.log(numMagicSquaresInside([[7,8,3,1,8],[2,6,10,8,4],[9,4,5,4,3],[10,5,0,5,10],[1,8,7,6,2]]), '0');
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

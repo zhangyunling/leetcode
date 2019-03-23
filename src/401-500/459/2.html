@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+function repeat(s, len){
+    var i=0;
+    var r = '';
+    while(i < len){
+        i++;
+
+        r+=s;
+    }
+
+    return r;
+}
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var repeatedSubstringPattern = function(s) {
+    var len = s.length;
+    var si = 2;
+    var ms = Math.floor(len/si);
+
+    if(len == 1){
+        return false;
+    } else if(len == 2){
+        return s[0] == s[1];
+    }
+
+    while(si <= ms){
+        if(len % si == 0 && repeat(s.substr(0, si), len/si) == s){
+            return true;
+        }
+        si++;
+    }
+
+    if(repeat(s.substr(0, 1), len) == s){
+        return true;
+    }
+
+    return false;
+};
+var start = Date.now();
+console.log(repeatedSubstringPattern('abab'),'true')
+console.log(repeatedSubstringPattern('aba'),'false')
+console.log(repeatedSubstringPattern('bb'),'true')
+console.log(repeatedSubstringPattern('abcabcabcabc'),'true')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

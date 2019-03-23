@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortedSquares = function(A) {
+    var arr = A.map(function(item){
+        return item * item;
+    });
+
+    arr.sort(function(p1, p2){
+        return p1 -p2;
+    });
+
+    return arr;
+};
+
+console.log(sortedSquares([-4,-1,0,3,10]),'[0,1,9,16,100]')
+console.log(sortedSquares([-7,-3,2,3,11]),'[4,9,9,49,121]')
+
+
+var start = Date.now();
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

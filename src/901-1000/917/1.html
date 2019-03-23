@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+var isChar = function(c){
+    var v = c.charCodeAt();
+
+    if((v >= 65 && v <= 90) || (v <= 122 && v >= 97)){
+        return true;
+    }
+
+    return false;
+}
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var reverseOnlyLetters = function(S) {
+    var len = S.length;
+    var i = 0;
+    var j = len-1;
+    var v = '';
+    var c1 = '';
+    var c2 = '';
+    var arr = S.split("");
+
+    while(i < j){
+        c1 = isChar(arr[i]);
+        c2 = isChar(arr[j]);
+
+        if(c1 && c2){
+            v = arr[i];
+            arr[i] = arr[j];
+            arr[j] = v;
+            i++;
+            j--;
+        } else if(c1){
+            j--;
+        } else {
+            i++;
+        }
+    }
+
+    return arr.join("");
+};
+var start = Date.now();
+
+console.log(reverseOnlyLetters("ab-cd") == "dc-ba");
+console.log(reverseOnlyLetters("a-bC-dEf-ghIj") == "j-Ih-gfE-dCba");
+console.log(reverseOnlyLetters("Test1ng-Leet=code-Q!") == "Qedo1ct-eeLg=ntse-T!");
+
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

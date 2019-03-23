@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+function repeat(s, len){
+    var i=0;
+    var r = '';
+    while(i < len){
+        i++;
+
+        r+=s;
+    }
+
+    return r;
+}
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var repeatedSubstringPattern = function(s) {
+    var f = s[0];
+    var arr = [0];
+    var i = 1;
+    var len = s.length;
+    var index = s.indexOf(f, i);
+
+    while(index != -1 && index < len){
+        arr.push(index);
+        index = s.indexOf(f, index+1);
+    }
+
+    var l2 = arr.length;
+
+    if(l2 <= 1){
+        return false;
+    }
+
+    if(l2 <= 3){
+        return repeat(s.substr(0, arr[1]), l2) == s;
+    }
+
+    i = 1;
+    
+    while(i <= l2-1){
+        if(l2%i == 0 && repeat(s.substr(0, arr[i]), l2/i)== s){
+            return true;
+        }
+        i++;
+    }
+
+    return false;
+};
+var start = Date.now();
+console.log(repeatedSubstringPattern('abab'),'true')
+console.log(repeatedSubstringPattern('aba'),'false')
+console.log(repeatedSubstringPattern('bb'),'true')
+console.log(repeatedSubstringPattern('abcabcabcabc'),'true')
+console.log(repeatedSubstringPattern("aabaaba"),'false')
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

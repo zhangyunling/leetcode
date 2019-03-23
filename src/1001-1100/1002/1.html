@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string[]} A
+ * @return {string[]}
+ */
+var commonChars = function(A) {
+    var len = A.length;
+
+    if(len <= 0){
+    	return A;
+    } else if(len == 1){
+    	return A[0].split("");
+    }
+
+    var base = A[0].split("");
+    var l1 = base.length;
+    var arr = [];
+    var i1 = 0;
+    var i2 = 0;
+    var v1 = "";
+    var v2 = "";
+    var flag = true;
+
+    while(i1 < l1){
+    	j = 1;
+    	v1 = base[i1];
+    	flag = true;
+    	while(j < len){
+    		v2 = A[j];
+
+    		if(v2.indexOf(v1) == -1){
+    			flag = false;
+    			break;
+    		} else {
+    			A[j] = v2.replace(v1, "");
+    		}
+    		j++;
+    	}
+
+    	if(flag){
+    		arr.push(v1);
+    	}
+    	i1++;
+    }
+
+    return arr;
+};
+var start = Date.now();
+console.log(commonChars(["bella","label","roller"]),'["e","l","l"]')
+console.log(commonChars(["cool","lock","cook"]),'["c","o"]')
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>
