@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number} N
+ * @return {string}
+ */
+var baseNeg2 = function(N) {
+    var str = '';
+    var flag = 1;
+    var len = 0;
+    var v = 0;
+
+    if(N==0){
+        return '0';
+    }
+
+    while(N){
+        v = N%2;
+
+        N = (N - flag *v)/2;
+
+        flag *= -1;
+        str = v + str;
+    }
+
+    return str;
+};
+
+var start = Date.now();
+
+console.log(baseNeg2(2), "110")
+console.log(baseNeg2(3), "111")
+console.log(baseNeg2(4), "100")
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

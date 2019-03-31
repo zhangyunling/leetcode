@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string[]} words
+ * @return {string}
+ */
+var longestWord = function(words) {
+    var longWord = '';
+    var i = 0;
+    var len = words.length;
+    var j = 0;
+    var lj = 0;
+    var word = '';
+    var cWord = '';
+    var v = '';
+    var l1 = 0;
+    var l2 = 0;
+
+    if(len <= 1){
+        return cWord;
+    }
+
+    while(i < len){
+        word = words[i];
+        l1 = word.length;
+        l2 = cWord.length;
+        if(l1 >= l2){
+            j = l1;
+            while(j > 0){
+                v = word.substring(0,j);
+                if(words.indexOf(v) === -1){
+                    break;
+                }
+                j--;
+            }
+
+            if(j === 0 && (l1 > l2 || word < cWord)){
+                cWord = word;
+            }
+        }
+
+        i++;
+    }
+
+    return cWord;
+};
+var start = Date.now();
+
+console.log(longestWord(["w","wo","wor","worl", "world"]), 'world');
+console.log(longestWord(["a", "banana", "app", "appl", "ap", "apply", "apple"]), 'apple');
+console.log(longestWord(["m","mo","moc","moch","mocha","l","la","lat","latt","latte","c","ca","cat"]), 'latte');
+console.log(longestWord(["gbra","jy","pl","zn","gb","j","jyh","jyhm","plr","znicn","p","gbr","zni","znic","aq"]), 'jyhm');
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

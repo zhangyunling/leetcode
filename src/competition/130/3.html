@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number[]}
+ */
+var nextLargerNodes = function(head) {
+    var arr = [];
+
+    while(head){
+      arr.push(head.val);
+      head = head.next;
+    }
+
+    var len = arr.length;
+    var max = arr[0];
+    var v = 0;
+    var cache = [];
+    var l1 = 0;
+    var i = 0;
+
+    while(i < len){
+      v = arr[i];
+
+      l1 = cache.length - 1;
+      while(l1 >= 0){
+        v1 = cache[l1];
+        if(arr[v1] >= v){
+          break;
+        } else {
+          arr[v1] = v;
+          cache.pop();
+        }
+        l1--;
+      }
+
+      cache.push(i);
+
+      i++;
+    }
+    
+    while(cache.length){
+      arr[cache.pop()] = 0;
+    }
+
+    return arr;
+};
+
+var start = Date.now();
+
+console.log(nextLargerNodes({
+  val: 2,
+  next: {
+    val: 1,
+    next: {
+      val: 5,
+      next: null
+    }
+  }
+}), '[5,5,0]')
+// console.log(nextLargerNodes([2,7,4,3,5]), '[7,0,5,5,0]')
+// console.log(nextLargerNodes([1,7,5,1,9,2,5,1]), '[7,9,9,9,0,5,0,0]')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>
