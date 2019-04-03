@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+    <p id = "a"></p>
+    <button id = "b">设置</button>
+</body>
+<script>
+let promise1 = new Promise((resolve, reject) => {
+  resolve('success')
+})
+
+setTimeout(function(){
+    promise2 = promise1.then(function(result){
+        console.log("111",result);
+    }).then(function(result){
+        console.log("222",result);
+    });
+}, 1000);
+
+const PENDING= "PENDING";
+const FULFILLED = "FULFILLED";
+const REJECTED= "REJECTED";
+var isFunction = function(fn){
+    return typeof fn === 'function';
+};
+
+class MyPromise{
+    constructor(handle){
+        
+        if(!isFunction(handle)){
+            throw new Error('MyPromise accept a function as params!');
+        }
+
+        // 设置状态
+        this._state = PENDING;
+        // 设置值；
+        this._value = undefined;
+
+        // 成功的回调队列
+        this._fulfilledQueues = [];
+        // 失败的回调队列
+        this._rejectedQueues = [];
+
+        // 执行hander
+        try{
+            handle(this._resolve.bind(this), this._reject.bind(this));
+        }catch(err){
+            this._reject(err);
+        }
+    }
+
+    _resolve(val){
+        if(this._state != PENDING){
+            return;
+        }
+
+        this._state = FULFILLED;
+        this._value = val;
+    }
+
+    _reject(err){
+        if(this._state != PENDING){
+            return;
+        }
+
+        this._state = REJECTED;
+        this._value = err;
+    }
+
+    // 添加then方法
+    then(onSucc, onFail){
+        const {_statue, _value} = this;
+
+    }
+
+}
+
+
+</script>
+</html>
