@@ -12,78 +12,143 @@
 <title>测试</title>
 </head>
 <body>
-    <p id = "a"></p>
-    <button id = "b">设置</button>
+  <p id = "a"></p>
+  <button id = "b">设置</button>
 </body>
 <script>
-let promise1 = new Promise((resolve, reject) => {
-  resolve('success')
-})
-
-setTimeout(function(){
-    promise2 = promise1.then(function(result){
-        console.log("111",result);
-    }).then(function(result){
-        console.log("222",result);
-    });
-}, 1000);
 
 const PENDING= "PENDING";
 const FULFILLED = "FULFILLED";
 const REJECTED= "REJECTED";
 var isFunction = function(fn){
-    return typeof fn === 'function';
+  return typeof fn === 'function';
 };
 
 class MyPromise{
-    constructor(handle){
-        
-        if(!isFunction(handle)){
-            throw new Error('MyPromise accept a function as params!');
-        }
-
-        // 设置状态
-        this._state = PENDING;
-        // 设置值；
-        this._value = undefined;
-
-        // 成功的回调队列
-        this._fulfilledQueues = [];
-        // 失败的回调队列
-        this._rejectedQueues = [];
-
-        // 执行hander
-        try{
-            handle(this._resolve.bind(this), this._reject.bind(this));
-        }catch(err){
-            this._reject(err);
-        }
+  constructor(handle){    
+    if(!isFunction(handle)){
+      throw new Error('MyPromise accept a function as params!');
     }
 
-    _resolve(val){
-        if(this._state != PENDING){
-            return;
-        }
+    // 设置状态
+    this._state = PENDING;
+    // 设置值；
+    this._value = undefined;
 
+    // 成功的回调队列
+    this._fulfilledQueues = [];
+    // 失败的回调队列
+    this._rejectedQueues = [];
+
+    // 执行hander
+    try{
+      handle(this._resolve.bind(this), this._reject.bind(this));
+    }catch(err){
+      this._reject(err);
+    }
+  
+
+  _resolve(val){
+    
+    const run = ()=>{
+        if(this._state != PENDING){
+          return;
+        }
+        
         this._state = FULFILLED;
         this._value = val;
+
+        let cb;
+
+        while(cb == this._fulfilledQueues.shift()){
+            cb(val);
+        }
     }
 
-    _reject(err){
-        if(this._state != PENDING){
-            return;
-        }
+    // 执行
+    setTimeout(run, 0);
+    
+  }
 
+  _reject(err){
+    if(this._state != PENDING){
+      return;
+    }
+
+    const run = () => {
         this._state = REJECTED;
         this._value = err;
+        let cb;
+
+        while(cb =  this._rejectedQueues.shift()){
+            cb(err);
+        }
     }
 
-    // 添加then方法
-    then(onSucc, onFail){
-        const {_statue, _value} = this;
+    //
+    setTimeout(run , 0);
+  }
 
-    }
+  // 添加then方法
+  then(onSucc, onFail){
+    const {_statue, _value} = this;
+    // 返回一个新的Promise对象
+    return MyPromise((onFulfilledNext, onRejectedNext) => {
+        
+    // 成功时执行的函数
+    let fulfilled = value => {
+      try{
+        if(!isFunction(onSucc)){
+            onFulfilledNext(value);
+        } else {
+            res = onSucc(value);
 
+            if(res instanceof MyPromise){
+                res.then(onFulfilledNext, onRejectedNext);
+            } else {
+                onFulfilledNext(res);
+            }
+        }
+      }catch(err){
+        onRejectedNext(err);
+      }
+    };
+
+    // 失败时执行的函数
+    let rejected = error => {
+        try{
+            if(!isFunction(onFail)){
+                onRejectedNext(error);
+            } else {
+                let res = onFail(error);
+
+                if(res instanceof MyPromise){
+                    res.then(onFulfilledNext, onRejectedNext);
+                } else {
+                    onFulfilledNext(error);
+                }
+            }
+        }catch(err){
+            onFulfilledNext(err)
+        }
+
+    };
+
+    switch(_statue){
+      case PENDING: 
+        this._fulfilledQueues.push(fulfilled);
+        this._rejectedQueues.push(rejected);
+        break;
+      case FULFILLED: 
+        fulfilled(_value);
+        break;
+
+      case REJECTED:
+        rejected(_value);
+        break;
+      }
+    });
+  }
 }
 
 

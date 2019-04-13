@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var walk = function(root, sum){
+    
+    if(!root){
+        return parseInt(sum,2);
+    }
+
+    var l = root.left;
+    var r = root.right;
+
+    sum += '' + root.val;
+
+    if(!l && !r){
+        return parseInt(sum,2);
+    }
+
+    return (l && walk(l, sum)) + (r && walk(r, sum));
+}
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumRootToLeaf = function(root) {
+    var sum = '';
+
+    if(!root){
+        return 0;
+    }
+
+    return walk(root, sum);
+};
+
+var start = Date.now();
+
+
+console.log(sumRootToLeaf({
+    val: 1,
+    left: {
+        val: 0,
+        left: {
+            val: 0,
+            left: null,
+            right: null
+        },
+        right:{
+            val: 1,
+            left: null,
+            right: null
+        }
+    },
+    right:{
+        val: 1,
+        left: {
+            val: 0,
+            left: null,
+            right: null
+        },
+        right:{
+            val: 1,
+            left: null,
+            right: null
+        }
+    }
+}), "22")
+console.log(sumRootToLeaf({
+    val: 1,
+    left: {
+        val: 1,
+        left: null,
+        right:null
+    },
+    right:null
+}), "3")
+console.log((Date.now() - start)/1000);
+</script>
+</html>

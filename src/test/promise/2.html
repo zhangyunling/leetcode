@@ -1,0 +1,172 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>一步一步实现Promise</title>
+</head>
+<body>
+  请直接在console.log的控制台查看
+  <br/>
+  then支持一下链式调用
+</body>
+<script>
+
+const PENDING= "PENDING";
+const FULFILLED = "FULFILLED";
+const REJECTED= "REJECTED";
+var isFunction = function(fn){
+  return typeof fn === 'function';
+};
+
+class MyPromise{
+  constructor(handle){    
+    if(!isFunction(handle)){
+      throw new Error('MyPromise accept a function as params!');
+    }
+
+    // 设置状态
+    this._state = PENDING;
+    // 设置值；
+    this._value = undefined;
+
+    // 成功的回调队列
+    this._fulfilledQueues = [];
+    // 失败的回调队列
+    this._rejectedQueues = [];
+
+    // 执行hander
+    try{
+      handle(this._resolve.bind(this), this._reject.bind(this));
+    }catch(err){
+      this._reject(err);
+    }
+  }
+
+  _resolve(val){
+    if(this._state != PENDING){
+      return;
+    }
+
+    const run = ()=>{
+      this._state = FULFILLED;
+      this._value = val;
+
+      let cb;
+
+      while(cb = this._fulfilledQueues.shift()){
+        cb(val);
+      }
+    }
+
+    // 执行
+    setTimeout(run, 0);
+  }
+
+  _reject(err){
+    if(this._state != PENDING){
+      return;
+    }
+
+    const run = () => {
+      this._state = REJECTED;
+      this._value = err;
+
+      let cb ;
+
+      while(cb = this._rejectedQueues.shift()){
+        cb(err);
+      }
+    }
+
+    //
+    setTimeout(run , 0);
+  }
+
+  // 添加then方法
+  then(onFulfilled, onRejected){
+    const {_state, _value} = this;
+
+    return new MyPromise((onFulfilledNext, onRejectedNext) => {
+      let fulfilled = (value) => {
+        if(!isFunction(onFulfilled)){
+          onFulfilledNext(value);
+        } else {
+          let res = onFulfilled(value);
+
+          if(res instanceof MyPromise){
+            res.then(onFulfilledNext, onRejectedNext);
+          } else {
+            onFulfilledNext(res);
+          }
+        }
+      }
+
+      let rejected = (err) => {
+        if(!isFunction(onRejected)){
+          onRejectedNext(err);
+        } else {
+          let res = onRejected(err);
+
+          if(res instanceof MyPromise){
+            res.then(onFulfilledNext, onRejectedNext);
+          } else {
+            onFulfilledNext(err);
+          }
+        }
+      }
+
+      switch(_state){
+        case PENDING: 
+          this._fulfilledQueues.push(fulfilled);
+          this._rejectedQueues.push(rejected);
+          break;
+
+        case FULFILLED:
+          fulfilled(_value);
+          break;
+
+        case REJECTED:
+          rejected(_value);
+      }
+    });
+  }
+}
+
+var options = {
+  success: function(val){
+    console.log('success', val);
+    return val;
+  },
+  error: function(err){
+    console.log('error', err);
+    return err;
+  }
+};
+const promise1 = new Promise(function(resolve, reject) {
+  if(Math.random() - 0.5 > 0){
+    resolve('success1');
+  } else {
+    reject('error1');
+  }
+});
+
+promise1.then('111111').then(options.success, options.error);
+
+const promise2 = new MyPromise(function(resolve, reject) {
+  if(Math.random() - 0.5 > 0){
+    resolve('success2');
+  } else {
+    reject('error2');
+  }
+});
+promise2.then('22222').then(options.success, options.error);;
+
+</script>
+</html>

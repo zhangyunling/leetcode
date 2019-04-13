@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+<style>
+
+</style>
+</head>
+<body>
+</body>
+<script>
+
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var removeOuterParentheses = function(S) {
+    var arr = S.split("");
+    var arr2 = [];
+    var r = '';
+    var i = 0;
+    var len = arr.length;
+    var v = '';
+    var v2 = '';
+    var i1 = 0;
+
+    while(i < len){
+        v = arr[i]
+        if(v == '('){
+            arr2.push('(');
+        } else {
+            arr2.pop();
+
+            if(!arr2.length){
+                r += S.substring(i1+1, i);
+                i1 = i+1;
+            }
+        }
+        i++;
+    }
+
+    return r;
+};
+var start = Date.now();
+
+console.log(removeOuterParentheses('(()())(())'), "()()()")
+console.log(removeOuterParentheses("(()())(())(()(()))"), "()()()()(())")
+console.log(removeOuterParentheses("()()"), '')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

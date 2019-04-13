@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string[]} queries
+ * @param {string} pattern
+ * @return {boolean[]}
+ */
+var camelMatch = function(queries, pattern) {
+  var regStr = '^[^A-Z]*?' +pattern.replace(/([A-Z]?)([^A-Z]*)/g, function(p1,p2,p3){
+    return p2+'[^A-Z]*?'+(p3||'').split('').join('[^A-Z]*?')+'[^A-Z]*?';
+  }) +'$';
+
+  //console.log(regStr);
+  var reg = new RegExp(regStr);
+  var i = 0;
+  var len = queries.length;
+  var arr = [];
+
+  while(i < len){
+    arr.push(reg.test(queries[i]));
+    i++;
+  }
+
+  return arr;
+};
+
+var start = Date.now();
+
+console.log(camelMatch(["FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"], "FB"), '[true,false,true,true,false]')
+console.log(camelMatch(["FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"], "FoBa"), '[true,false,true,false,false]')
+console.log(camelMatch(["FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"], "FoBaT"), '[false,true,false,false,false]')
+console.log(camelMatch(["CompetitiveProgramming","CounterPick","ControlPanel"], "CooP"), '[false,false,true]')
+
+console.log(camelMatch(["IXfGawluvnCa","IsXfGaxwulCa","IXfGawlqtCva","IXjfGawlmeCa","IXfGnaynwlCa","IXfGcamwelCa"], "IXfGawlCa"), '[true,true,true,true,true,true]')
+
+console.log(camelMatch(["aksvbjLiknuTzqon","ksvjLimflkpnTzqn","mmkasvjLiknTxzqn","ksvjLiurknTzzqbn","ksvsjLctikgnTzqn","knzsvzjLiknTszqn"],"ksvjLiknTzqn"), '[true,true,true,true,true,true]')
+
+console.log(camelMatch(["uAxaqlzahfialcezsLfj","cAqlzyahaslccezssLfj","AqlezahjarflcezshLfj","AqlzofahaplcejuzsLfj","tAqlzahavslcezsLwzfj","AqlzahalcerrzsLpfonj","AqlzahalceaczdsosLfj","eAqlzbxahalcezelsLfj"]
+,"AqlzahalcezsLfj"), '[true,true,true,true,true,true,true,true]')
+console.log((Date.now() - start)/1000);
+</script>
+</html>
