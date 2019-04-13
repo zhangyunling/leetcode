@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countBinarySubstrings = function(s) {
+    var nums = 0;
+    var index = 0;
+    var len = s.length;
+    var cur = s[0];
+    var arr = [0,0];
+    var i = 0;
+
+    if(len < 2){
+        return 0;
+    }
+
+    while(i < len){
+        v = s[i];
+
+        if(v == cur){
+            arr[1]++;
+        } else {
+            nums += Math.min(arr[0],arr[1]);
+            arr[0] = arr[1];
+            arr[1] = 1;
+            cur = v;
+        }
+        i++;
+    }
+
+    nums += Math.min(arr[0],arr[1]);
+
+    return nums;
+};
+
+var start = Date.now();
+
+console.log(countBinarySubstrings("00110011"), '6');
+console.log(countBinarySubstrings("10101"), '4');
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

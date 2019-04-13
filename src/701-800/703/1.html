@@ -1,0 +1,110 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number} k
+ * @param {number[]} nums
+ */
+var KthLargest = function(k, nums) {
+    nums.sort((p1,p2) => {return p2 - p1;});
+    this.list = nums.slice(0,k);
+    this.list.length = k;
+    return null;
+};
+
+/** 
+ * @param {number} val
+ * @return {number}
+ */
+KthLargest.prototype.add = function(val) {
+    var list = this.list;
+    var len = list.length;
+    var i = len - 1;
+    var v = list[i];
+
+    // 如果为undfined
+    if(v === undefined){
+        while(v === undefined && i >= 0){
+            i--;
+            v = list[i];
+        }
+
+        // 放到最高的值为undefined的位置
+        list[i + 1] = val;
+
+        while(i >= 0){
+            v = list[i];
+
+            if(v >= val){
+                break;
+            } else {
+                list[i + 1] = list[i];
+                list[i] = val;
+            }
+            i--;
+        }
+
+        return list[len - 1];
+    }
+
+    if(v >= val){
+        return v;
+    } else {
+        list[i] = val;
+        i--;
+        while(i >= 0){
+            v = list[i];
+
+            if(v >= val){
+                break;
+            } else {
+                list[i + 1] = list[i];
+                list[i] = val;
+            }
+            i--;
+        }
+        return list[len - 1];
+    }
+};
+
+/** 
+ * Your KthLargest object will be instantiated and called as such:
+ * var obj = new KthLargest(k, nums)
+ * var param_1 = obj.add(val)
+ */
+var start = Date.now();
+var k = 3;
+var arr = [4,5,8,2];
+var kthLargest = new KthLargest(3, arr);
+
+
+console.log((Date.now() - start)/1000);
+console.log(kthLargest.add(3), '4');
+console.log(kthLargest.add(5), '5');
+console.log(kthLargest.add(10), '5');
+console.log(kthLargest.add(9), '8');
+console.log(kthLargest.add(4), '8');
+
+var kthLargest2 = new KthLargest(2, [0]);
+
+console.log(kthLargest2.add(-1), '-1');
+console.log(kthLargest2.add(1), '0');
+console.log(kthLargest2.add(-2), '0');
+console.log(kthLargest2.add(-4), '0');
+console.log(kthLargest2.add(3), '1');
+
+</script>
+</html>
