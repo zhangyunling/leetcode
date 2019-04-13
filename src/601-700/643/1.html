@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findMaxAverage = function(nums, k) {
+    var len = nums.length;
+    var max = 0;
+    var i = 0;
+    var curMax = 0;
+    var v1 = 0;
+    var v2 = 0;
+
+    while(i < k){
+        max += nums[i];
+        i++;
+    }
+
+    curMax = max;
+
+    while(i < len){
+        v1 = nums[i - k];
+        v2 = nums[i];
+
+        curMax = curMax + v2 - v1;
+        max = Math.max(max, curMax);
+
+        i++;
+    }
+
+    return (max / k);
+
+};
+
+var start = Date.now();
+
+console.log(findMaxAverage([1,12,-5,-6,50,3], 4), '12.75');
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>
