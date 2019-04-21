@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[][]} costs
+ * @return {number}
+ */
+var twoCitySchedCost = function(costs) {
+    var i = 0;
+    var len = costs.length;
+    var one = [];
+    var num = 0;
+
+    while(i < len){
+    	one = costs[i];
+
+    	one.push(one[1] - one[0]);
+    	i++;
+    }
+    
+    costs.sort(function(p1, p2){
+    	return p2[2] - p1[2];
+    });;
+
+    i = 0;
+    while(i < len/2){
+    	num += costs[i][0];
+    	i++;
+    }
+
+    while(i < len){
+    	num += costs[i][1];
+    	i++;
+    }
+
+    return num;
+};
+
+var start = Date.now();
+
+console.log(twoCitySchedCost([[10,20],[30,200],[400,50],[30,20]]) , '110');
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

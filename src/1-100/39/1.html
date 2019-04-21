@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var combinationTwoSum = function(candidates, target, value){
+    var arr2 = [];
+    var min = Math.min.apply(Math, candidates);
+    var i = 0;
+    var len = candidates.length;
+    var v = 0;
+
+    // 如果循环到数组为空
+    if(len <= 0 || candidates[0] > target){
+        return arr2;
+    }
+
+    // 求第一个元素的值
+    var v = candidates[0];
+
+    // 表示
+    if(target == v){
+        arr2.push([v]);
+    } else {
+
+    }
+
+    if(target <= min){
+        if(target == min){
+            arr2.push([target]);
+        }
+    } else {
+        v = candidates[i];
+        while(i < len){
+            v = target - candidates[i];
+
+            // 表示存在
+            if(candidates.indexOf(v) != -1){
+                arr2.push([candidates[i], v]);
+            }
+
+            arr2 = arr2.concat(combinationTwoSum(candidates, v, []));
+
+            i++;
+        }
+    }
+
+    candidates.shift();
+
+    // console.log(arr2);
+    // arr2合并到arr去
+    // arr/
+    return arr;
+}
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum = function(candidates, target) {
+    var arr = [];
+
+    candidates.sort(function(p1, p2){
+        return p2 - p1;
+    });
+
+    return combinationTwoSum(candidates, target, 0);
+};
+
+var start = Date.now();
+console.log(combinationSum([2,3,6,7], 7), '[[7],[2,2,3]]');
+console.log(combinationSum([2,3,5], 8), '[[2,2,2,2],[2,3,3],[3,5]]');
+
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>
