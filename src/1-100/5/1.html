@@ -15,8 +15,24 @@
 </body>
 <script>
 
-var tPalindrome = function(s){
-	return s === s.split("").reverse().join("");
+var tPalindrome2 = function(s){
+    let len = s.length;
+    let min = 0;
+    let max = len - 1;
+    let mid = len / 2;
+
+    while(min < mid){
+        // 如果不相同，直接返回false
+        if(s[min] !== s[max]){
+            return false;
+        }
+
+        min++;
+        max--;
+    }
+
+    // 如果执行到最后，那么就证明是字符串；
+    return true;
 }
 /**
  * @param {string} s
@@ -24,41 +40,36 @@ var tPalindrome = function(s){
  */
 var longestPalindrome = function(s) {
     var len = s.length;
-    var obj = {
-    	str: "",
-    	len: 0
-    };
     var i = 0;
-    var j = 0;
+    var max = len;
     var str = '';
-    var ss = '';
-    var rs = s.
 
+    // 长度小于1 的时候
     if(len <= 1){
     	return s;
     }
 
-    for(i; i < len - obj.len; i++){
-    	for(j = i+1; j<= len; j++){
-    		str = s.substring(i, j);
-    		if(tPalindrome(str) && str.length - obj.len > 0){
-    			obj.len = str.length;
-    			obj.str = str;
-    		}
-    	}
+    for (max; max > 1; max--) {
+        for(i = 0; i <= (len - max); i++) {
+            str = s.substr(i, max);
+            if(tPalindrome2(str)){
+                return str;
+            }
+        }
     }
 
-    return obj.str;
+    return s[0];
 };
 
 var start = Date.now();
 
-// console.log(longestPalindrome('babad'), 'bab');
-// console.log(longestPalindrome('babad'), 'bab');
-// console.log(longestPalindrome('cbbd'), 'bb');
-// console.log(longestPalindrome('a'), 'a');
-// console.log(longestPalindrome('bb'), 'bb');
+console.log(longestPalindrome('babad'), 'bab');
+console.log(longestPalindrome('babad'), 'bab');
+console.log(longestPalindrome('cbbd'), 'bb');
+console.log(longestPalindrome('a'), 'a');
+console.log(longestPalindrome("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), 'bb');
 console.log(longestPalindrome("zudfweormatjycujjirzjpyrmaxurectxrtqedmmgergwdvjmjtstdhcihacqnothgttgqfywcpgnuvwglvfiuxteopoyizgehkwuvvkqxbnufkcbodlhdmbqyghkojrgokpwdhtdrwmvdegwycecrgjvuexlguayzcammupgeskrvpthrmwqaqsdcgycdupykppiyhwzwcplivjnnvwhqkkxildtyjltklcokcrgqnnwzzeuqioyahqpuskkpbxhvzvqyhlegmoviogzwuiqahiouhnecjwysmtarjjdjqdrkljawzasriouuiqkcwwqsxifbndjmyprdozhwaoibpqrthpcjphgsfbeqrqqoqiqqdicvybzxhklehzzapbvcyleljawowluqgxxwlrymzojshlwkmzwpixgfjljkmwdtjeabgyrpbqyyykmoaqdambpkyyvukalbrzoyoufjqeftniddsfqnilxlplselqatdgjziphvrbokofvuerpsvqmzakbyzxtxvyanvjpfyvyiivqusfrsufjanmfibgrkwtiuoykiavpbqeyfsuteuxxjiyxvlvgmehycdvxdorpepmsinvmyzeqeiikajopqedyopirmhymozernxzaueljjrhcsofwyddkpnvcvzixdjknikyhzmstvbducjcoyoeoaqruuewclzqqqxzpgykrkygxnmlsrjudoaejxkipkgmcoqtxhelvsizgdwdyjwuumazxfstoaxeqqxoqezakdqjwpkrbldpcbbxexquqrznavcrprnydufsidakvrpuzgfisdxreldbqfizngtrilnbqboxwmwienlkmmiuifrvytukcqcpeqdwwucymgvyrektsnfijdcdoawbcwkkjkqwzffnuqituihjaklvthulmcjrhqcyzvekzqlxgddjoir"), 'bbb');
+
 console.log(Date.now() - start);
 
 </script>

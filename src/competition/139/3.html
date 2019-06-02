@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number[]}
+ */
+var addNegabinary = function(arr1, arr2) {
+  arr1.reverse();
+  arr2.reverse();
+  let arr = [];
+  let len1 = arr1.length;
+  let len2 = arr2.length;
+  let min = Math.min(len1, len2);
+  let max = 0;
+  let maxArr = null;
+  let i = 0;
+  let flag = [0, 0];
+  let v = 0;
+
+  if(len1 < len2) {
+    max = len2;
+    maxArr = arr2;
+  } else {
+    max = len1;
+    maxArr = arr1;
+  }
+
+  while(i < min){
+    v = arr1[i] + arr2[i] + flag[1];
+
+    i++;
+  }
+
+  while(i < max) {
+    v = maxArr[i] + (arr[i] || 0);
+
+    i++;
+  }
+
+  arr.reverse();
+
+  let index = arr.indexOf(1);
+
+  if(index === -1){
+    return [0];
+  } else if(index === 0) {
+    return arr;
+  } else {
+    return arr.splice(0, index);
+  }
+};
+var start = Date.now();
+
+console.log(addNegabinary([1,1,1,1,1], [1,0,1]) , [1,0,0,0,0]);
+// console.log(addNegabinary([0], [0]) , [0]);
+// console.log(addNegabinary([1], [1]) , [1,1,0]);
+// console.log(addNegabinary([1], [1,0,1]) , [1,1,0,1,0]);
+
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>
