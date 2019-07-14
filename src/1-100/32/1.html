@@ -20,27 +20,32 @@
  */
 var longestValidParentheses = function(s) {
     var cacheIndex = 0;
-    var len = s.length;
-    var i = 0;
-    var arr = [];
-    var maxLen = 0;
-
-    while(i < len){
-        if(s[i] == '('){
-            arr.push('(');
-        } else {
-            if(arr.length){
-                arr.pop();
-            } else {
-                maxLen = Math.max(maxLen, (i - cacheIndex));
-                cacheIndex = i + 1;
-            }
-        }
-        i++;
+    var len = 0;
+    var reg = /\(((?:,\d+,)*)\)/g;
+    var max = 0;
+    var cb = function (p1, p2){
+        var value = 2;
+        p2 && p2.split(',').forEach(function(item){
+            value += item*1;
+        });
+        return ',' + value + ',';
     }
 
-    return maxLen;
+    while (s.match(reg)){
+        s = s.replace(reg, cb);
+    }
 
+    var reg2 = /(,\d+,)*/g;
+    s.replace(reg2, function(p1, p2){
+        var value = 0;
+        p1 && p1.split(',').forEach(function(item){
+            value += item*1;
+        });
+        
+        max = Math.max(max, value);
+     });
+
+    return max;
 };
 
 var start = Date.now();

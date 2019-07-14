@@ -1,0 +1,153 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+function _getEnableNumber (_v) {
+  let _nv = '';
+  for (let j = 1; j <= 9; j++){
+    if (_v.indexOf(j) === -1) {
+      _nv += '' + j;
+    }
+  }
+  return _nv;
+}
+function _update (board, cacheArr) {
+  // 循环，生成新的cacheArr
+  for (let i=0;i<9;i++) {
+    // 横向
+    cacheArr[i] = board[i].join('').replace(/\./g,'');
+    // 纵向
+    cacheArr[9 + i] = [board[0][i],board[1][i],board[2][i],board[3][i],board[4][i],board[5][i],board[6][i],board[7][i],board[8][i]].join('').replace(/\./g,'');
+  }
+
+  for (let i =0; i < 3;i++) {
+    for(let j = 0; j< 3; j++) {
+      cacheArr.push([board[i*3][j*3],board[i*3][j*3+1],board[i*3][j*3+2],board[i*3+1][j*3],board[i*3+1][j*3+1],board[i*3+1][j*3+2],board[i*3+2][j*3],board[i*3+2][j*3+1],board[i*3+2][j*3+2]].join('').replace(/\./g,''));
+    }
+  }
+
+  return _updateEmptyObj(board, cacheArr);
+}
+function _updateEmptyObj (board, cacheArr) {
+  let emptyObj = {
+    len: 0
+  };
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j< 9; j++) {
+      let v = board[i][j];
+      let key = `${i}-${j}`;
+
+      if (isNaN(v)) {
+        
+        let _cv = _getEnableNumber(cacheArr[9+j]+cacheArr[i]+cacheArr[18 + Math.floor(i/3)*3 + Math.floor(j/3)]);
+
+        emptyObj[key] = {
+          x: i,
+          y: j,
+          cv: _cv,
+          v: _cv
+        };
+        emptyObj.len++;
+      }
+    }
+  }
+
+  return emptyObj;
+}
+
+function _walkAndUpdate (board, cacheArr, emptyObj) {
+  for (let key in emptyObj) {
+
+    if (key != 'len') {
+      let v = emptyObj[key];
+      let vv = v.v;
+
+      if (vv.length === 1) {
+        // 表示，当前位置，只有一个可选择的数字，直接填写
+        board[v.x][v.y] = vv;
+        // 并且，更新cacheArr数组中，包含的数据
+        cacheArr[v.x] += vv;
+        cacheArr[v.y+9] += vv;
+        cacheArr[18 + Math.floor(v.x/3)*3 + Math.floor(v.y/3)] += vv;
+      }
+    }
+  }
+}
+
+function _search(board, cacheArr, emptyObj) {
+  var smallKey = null;
+  var _board = null;
+  var len = 9;
+
+  for (let key in emptyObj) {
+    if (key != 'len') {
+      smallKey = 
+    }
+  }
+
+
+
+
+}
+/**
+ * @param {character[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
+var solveSudoku = function(board) {
+  var cacheArr = [];
+  var emptyObj = _update(board, cacheArr);
+  var cacheLen = emptyObj.len;
+
+  while (emptyObj.len){
+    _walkAndUpdate(board, cacheArr, emptyObj);
+
+    // 重新计算，要填充的位置
+    emptyObj = _updateEmptyObj(board, cacheArr);
+    // 做异常判断
+    if (cacheLen == emptyObj.len){
+      break;
+    } else {
+      cacheLen = emptyObj.len;
+    }
+  }
+
+  if (emptyObj.len) {
+    while (!_search(board, cacheArr, emptyObj)) {}
+  }
+
+  console.log(emptyObj);
+  return board
+};
+var start = Date.now();
+// console.log(solveSudoku([
+//   ["5","3",".",".","7",".",".",".","."],
+//   ["6",".",".","1","9","5",".",".","."],
+//   [".","9","8",".",".",".",".","6","."],
+//   ["8",".",".",".","6",".",".",".","3"],
+//   ["4",".",".","8",".","3",".",".","1"],
+//   ["7",".",".",".","2",".",".",".","6"],
+//   [".","6",".",".",".",".","2","8","."],
+//   [".",".",".","4","1","9",".",".","5"],
+//   [".",".",".",".","8",".",".","7","9"]
+// ]), 'true');
+
+console.log(solveSudoku([[".",".","9","7","4","8",".",".","."],["7",".",".",".",".",".",".",".","."],[".","2",".","1",".","9",".",".","."],[".",".","7",".",".",".","2","4","."],[".","6","4",".","1",".","5","9","."],[".","9","8",".",".",".","3",".","."],[".",".",".","8",".","3",".","2","."],[".",".",".",".",".",".",".",".","6"],[".",".",".","2","7","5","9",".","."]]), [["5","1","9","7","4","8","6","3","2"],["7","8","3","6","5","2","4","1","9"],["4","2","6","1","3","9","8","7","5"],["3","5","7","9","8","6","2","4","1"],["2","6","4","3","1","7","5","9","8"],["1","9","8","5","2","4","3","6","7"],["9","7","5","8","6","3","1","2","4"],["8","3","2","4","9","1","7","5","6"],["6","4","1","2","7","5","9","8","3"]]);
+
+
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>
