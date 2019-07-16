@@ -14,19 +14,55 @@
 <body>
 </body>
 <script>
+function _check (str) {
+	var len = str.length;
+	var i = 1;
+	var r = '';
+	var v1 = str[0];
+	var v1Len = 1;
+
+	while (i < len) {
+		if (v1 == str[i]) {
+			v1Len++;
+		} else {
+			r += v1Len + '' + v1;
+			v1 = str[i];
+			v1Len = 1;
+		}
+		i++;
+	}
+
+	if (v1Len) {
+		r += v1Len + '' + v1;
+	}
+
+	return r;
+}
 /**
  * @param {number} n
  * @return {string}
  */
 var countAndSay = function(n) {
-    
+  if (n == 1) {
+  	return '1';
+  }
+
+  let i = 1;
+  let str = '1';
+  while (i < n) {
+  	str = _check(str);
+  	i++;
+  }
+
+  return str;
 };
 
 var start = Date.now();
- console.log(searchInsert([1,3,5,6], 5), 2);
- console.log(searchInsert([1,3,5,6],2), 1);
- console.log(searchInsert([1,3,5,6],7), 4);
- console.log(searchInsert([1,3,5,6],0), 0);
+ console.log(countAndSay(1), '1');
+ console.log(countAndSay(2), '11');
+ console.log(countAndSay(3), '21');
+ console.log(countAndSay(4), '1211');
+ console.log(countAndSay(5), '111221');
 
 
 console.log((Date.now() - start)/1000);

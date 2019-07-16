@@ -18,30 +18,43 @@ var combinationTwoSum = function(candidates, target, index){
     let arr = [];
     let i = index;
     let len = candidates.length;
+    let arrCache = [];
 
     while (candidates[i] > target) {
         i++;
     }
 
     // 如果已经超出长度，则直接返回cArr数组
-    if (i >= len) {
+    if (i >= len || !target) {
         return arr;
     }
 
     // 如果正好，相等的话；
     while (i < len) {
         let v = candidates[i];
+        i++;
 
         let arr2 = combinationTwoSum(candidates, target - v, i);
         if (arr2.length) {
             arr2.forEach(item => {
                 item.unshift(v);
-                arr.push(item);
+                let v2 =',' +  v + ',' + item.join(',') + ',';
+
+                if (arrCache.indexOf(v2) === -1) {
+                    arr.push(item);
+                }
+
+                arrCache.push(v2);
             });
         } else if (target == v) {
-            arr.push([v]);
+            let v2 =',' +  v + ',';
+
+            if (arrCache.indexOf(v2) === -1) {
+                arr.push([v]);
+            }
+            
+            arrCache.push(v2);
         }
-        i++;
     }
 
     return arr;
@@ -51,7 +64,7 @@ var combinationTwoSum = function(candidates, target, index){
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum = function(candidates, target) {
+var combinationSum2 = function(candidates, target) {
     var arr = [];
 
     candidates.sort(function(p1, p2){
@@ -62,8 +75,8 @@ var combinationSum = function(candidates, target) {
 };
 
 var start = Date.now();
-console.log(combinationSum([2,3,6,7], 7), '[[7],[2,2,3]]');
-console.log(combinationSum([2,3,5], 8), '[[2,2,2,2],[2,3,3],[3,5]]');
+console.log(combinationSum2([10,1,2,7,6,1,5], 8), '[[1, 7],[1, 2, 5],[2, 6],[1, 1, 6]]');
+console.log(combinationSum2([2,5,2,1,2], 5), '[[1,2,2],[5]]');
 
 
 console.log((Date.now() - start)/1000);
