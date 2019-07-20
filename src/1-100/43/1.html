@@ -1,0 +1,122 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+
+// 相加
+// 数组本来就是反序的；
+// 可以直接从左到右处理；
+function add (arr1, arr2) {
+    var flag = 0;
+    var len = arr2.length;
+    var i = 0;
+    var v = 0;
+
+    while (i < len) {
+        v = flag + (arr1[i] * 1 || 0) + (arr2[i] * 1 || 0)
+
+        if (v >= 10) {
+            flag = Math.floor(v / 10);
+            v = v % 10;
+        } else {
+            flag = 0;
+        }
+
+        arr1[i] = '' + v;
+        i++;
+    }
+
+    // 需要进位；
+    if (flag) {
+        arr1[i] = '' + (flag + (arr1[i] * 1 || 0));
+    }
+}
+
+// 相乘
+// 返回的反序的；
+function multiply2 (arr , v) {
+    var arr2 = [];
+    var flag = 0;
+    var len = arr.length - 1;
+    var v2 = 0;
+
+    while (len >= 0) {
+        v2 = flag + arr[len] * v;
+
+        if (v2 >= 10) {
+            flag = Math.floor(v2 / 10);
+            v2 = v2 % 10;
+        } else {
+            flag = 0;
+        }
+
+        arr2.push('' + v2);
+        len--;
+    }
+
+    if (flag) {
+        arr2.push('' + flag);
+    }
+
+    return arr2;
+}
+
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+var multiply = function(num1, num2) {
+    var arr1 = null;
+    var arr2 = null;
+    var result = [];
+
+    if (num1 == '0' || num2 == '0') {
+        return '0';
+    }
+
+    if (num1.length < num2.length) {
+        arr1 = num2.split('');
+        arr2 = num1.split('');
+    } else {
+        arr1 = num1.split('');
+        arr2 = num2.split('');
+    }
+
+    let v = 0;
+
+    while (arr2.length) {
+        v = arr2.pop();
+        if (v != '0') {
+            // 不等于0，则先相乘，后相加；
+            add(result, multiply2(arr1, v));
+        }
+        // 下一次使用的时候，arr1，后面要添加0；
+        arr1.push('0');
+    }
+
+    return result.reverse().join('');
+};
+
+var start = Date.now();
+console.log(multiply("0", "0"), '0');
+console.log(multiply("0", "1"), '0');
+console.log(multiply("2", "3"), '6');
+console.log(multiply("123", "456"), '56088');
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

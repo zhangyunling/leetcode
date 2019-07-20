@@ -1,0 +1,169 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+    <p>没写出来，有BUG</p>
+</body>
+<script>
+function splitReg(p) {
+    var i = 0;
+    var arr = [];
+    var len = p.length;
+    var v = '';
+    var key = '';
+
+    while (i < len) {
+        v = p[i];
+
+        if (v == '*' || v == '?') {
+            if (key) {
+                arr.push(key);
+                key = '';
+            }
+
+            arr.push(v);
+        } else {
+            key += v;
+        }
+
+        i++;
+    }
+
+    if (key) {
+        arr.push(key);
+    }
+
+    return arr;
+}
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {boolean}
+ */
+var isMatch = function(s, p) {
+    // 如果p等于*，则直接返回true;
+    if (p == '*') {
+        return true;
+    }
+
+    // 如果p等于空，则看s的值；
+    if (p == '') {
+        return !s;
+    }
+
+    var arr2 = splitReg(p);
+    var len2 = arr2.length;
+    var v1 = '';
+    var v2 = arr2[len2 - 1];
+    var len1 = 0;
+    
+    // 先把最右侧的，非 '*' 的去掉；
+    while (v2 && v2 != '*') {
+        if (v2 == '?' || (s.substr(0 - v2.length) == v2)) {
+            arr2.pop();
+            len2--;
+            s = s.substring(0, s.length - v2.length);
+        } else {
+            // 匹配失败
+            return false;
+        }
+        v2 = arr2[len2 - 1];
+    }
+
+    // 再把左侧的去掉；
+    v2 = arr2[0];
+    while (v2 && v2 != '*') {
+        if (v2 == '?' || (s.indexOf(v2) == 0)) {
+            arr2.shift();
+            len2--;
+            s = s.substring(v2.length, s.length);
+        } else {
+            // 匹配失败
+            return false;
+        }
+        v2 = arr2[0];
+    }
+
+    if (!len2 && s) {
+        return false;
+    }
+
+    // 如果
+    if (arr2.join('') == '*') {
+        return true;
+    }
+
+    // 去除 "*"，之后，进行递归调用
+    // arr2[0]，必定为 '*' ;
+    let base = 0;
+    let preStar = false;
+
+    while (len2 && s) {
+        v2 = arr2.shift();
+        len2--;
+
+        if (v2 == '?') {
+            if (!preStar) {
+                return isMatch(s, arr2.join(''));
+            }
+            base++; 
+        } else if (v2 != '*') {
+            // 出现下一个匹配的字符串；
+            if (s.indexOf(v2) < base) {
+                return false;
+            }
+
+            while (preStar && s.indexOf(v2) >= base) {
+                base = 0;
+                s = s.substring(s.indexOf(v2)+v2.length, s.length);
+                if (isMatch(s, arr2.join(''))) {
+                    return true;
+                }
+            }
+        } 
+
+        preStar = v2 == '*';
+    }
+
+    if (!len2 && s) {
+        return false;
+    }
+
+    // 如果
+    if (arr2.join('') == '*') {
+        return true;
+    }
+    
+    return false;
+};
+
+var start = Date.now();
+
+console.log(isMatch("aa", "a") == false);
+console.log(isMatch("aa", "*") == true);
+console.log(isMatch("cb", "?a") == false);
+console.log(isMatch("adceb", "*a*b") == true);
+console.log(isMatch("acdcb", "a*c?b") == false);
+console.log(isMatch("mississippi", "m??*ss*?i*pi") == false);
+console.log(isMatch("aa", "a*") == true);
+console.log(isMatch("ip", "*?i*") == false);
+console.log(isMatch("leetcode", "*e*t?d*") == false);
+console.log(isMatch("etcode", "*t?d*") == false);
+console.log(isMatch("etcodetad", "*t?d*") == true);
+ 
+console.log(isMatch("zacabz", "*a?b*") == false);
+console.log(isMatch("bz", "?b*") == false);
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>
