@@ -1,0 +1,133 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+
+function _getMaxInfo (arr, start, end) {
+    if (start >= end) {
+        return false;
+    }
+
+    let maxInfo = arr[start++];
+
+    for (start; start < end; start++) {
+        let one = arr[start];
+        if (one.v > maxInfo.v) {
+            maxInfo = one;
+        }
+    }
+
+    return maxInfo;
+}
+function _getValue (height, start, end) {
+    let min = Math.min(height[start], height[end]);
+    let v = 0;
+    let result = 0;
+
+    for (start; start <= end; start++) {
+        v = height[start];
+
+        if (v < min) {
+            result += (min - v);
+        }
+    }
+
+    return result;
+}
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+    var arr = [];
+    // 保存峰值的位置，和峰值相对的值；
+    let i = 0;
+    let len = height.length;
+    let preMax = 0;
+    let prev = 0;
+    let v = 0;
+
+    for (i; i< len;i++) {
+        v = height[i];
+
+        // 开始上坡；
+        if (v > prev) {
+            preMax = Math.max(preMax, v);
+            prev = v;
+        } else if (v < prev){
+            // 开始下坡，即出现峰值；
+            // preMax > 0时，记录一个峰值；
+            if (preMax > 0) {
+                arr.push({
+                    v: preMax,
+                    key: i - 1,
+                    index: arr.length
+                });
+                // 并且把preMax设置为0，等待下次波峰
+                preMax = 0;
+            }
+            prev = v;
+        }
+    }
+
+    // 最后一个元素，也是在上坡的话；
+    if (preMax > 0) {
+        arr.push({
+            v: preMax,
+            key: len - 1,
+            index: arr.length
+        });
+    }
+
+    // 如果只有一个波峰，则直接返回0；
+    if (arr.length <= 1){
+        return 0;
+    }
+
+    let arrLen = arr.length;
+    let maxInfo = _getMaxInfo(arr, 0, arrLen);
+    let leftMax = maxInfo;
+    let rightKMax = maxInfo;
+    let left = _getMaxInfo(arr, 0, leftMax.index);
+    let right = _getMaxInfo(arr, rightKMax.index+1, arrLen);
+    let result = 0;
+
+    // // 循环最大值左侧的数据
+    while (left){
+        result += _getValue(height, left.key, leftMax.key);
+        leftMax = left;
+        left = _getMaxInfo(arr, 0, leftMax.index);
+    }
+
+    // 循环最大值右侧的数据
+    while (right){
+        result += _getValue(height, rightKMax.key, right.key);
+        rightKMax = right;
+        right = _getMaxInfo(arr, rightKMax.index+1, arrLen);
+    }
+
+    return result;
+};
+
+var start = Date.now();
+console.log(trap([0,1,0,2,1,0,1,3,2,1,2,1]), '6');
+console.log(trap([]), '0');
+console.log(trap([3,5,3,1,4,5,1,6,3,7,7,8,6,7,2,4,9,6]), 27)
+
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

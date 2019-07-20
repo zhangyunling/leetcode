@@ -1,0 +1,86 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+
+function _getNextIndex (nums, index, len) {
+    let i = index + 1;
+    while (i < len) {
+        let v = nums[i];
+        if (v === '.' || v <= 0) {
+            i++;
+        } else {
+            return i;
+        }
+    }
+
+    return i;
+}
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var firstMissingPositive = function(nums) {
+    var len = nums.length;
+    var index = 0;
+
+    while (index < len) {
+        let nIndex = nums[index];
+        let v1 = 0;
+        let v2 = 0;
+
+        while (nums[nIndex] != '.' && nIndex < len+10) {
+            v1 = nums[nIndex];
+            nums[nIndex] = '.';
+            if (v1 < len) {
+                v2 = nums[v1];
+            } else {
+                v2 = len + 10;
+            }
+            nums[v1] = '.';
+            
+            nIndex = v2;
+        }
+
+        index = _getNextIndex(nums, index, len)
+    }
+
+    if (nums[0] === 1) {
+        nums[0] = '.'; 
+    }
+
+    let i = 1;
+    len = nums.length;
+
+    for (i; i <= len + 2; i++){
+        if (nums[i] != '.') {
+            return i;
+        }
+    }
+
+    return 1;
+};
+
+var start = Date.now();
+console.log(firstMissingPositive([1,2,0]), '3');
+console.log(firstMissingPositive([]), '1');
+console.log(firstMissingPositive([1]), '2');
+console.log(firstMissingPositive([3,4,-1,1]), '2');
+console.log(firstMissingPositive([7,8,9,11,12]), '1');
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>
