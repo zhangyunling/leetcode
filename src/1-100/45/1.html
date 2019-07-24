@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+    <p></p>
+</body>
+<script>
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var jump = function(nums) {
+    let i = 0;
+    let len = nums.length;
+    let num = 0;
+    let v = 0;
+    let v2 = 0;
+    let v3 = 0;
+    let max = 0;
+
+    // 如果第一个元素为0，则直接返回0；
+    if (!len || !nums[0]) {
+        return 0;
+    }
+
+    while (i < len-1){
+        num++;
+        v = nums[i];
+        max = 0;
+        v3 = 1;
+        if (i + 1 + v >= len) {
+            break;
+        }
+        while (v > 0) {
+            v2 = i + v;
+            if (v2 + nums[v2] >= max) {
+                max = v2 + nums[v2];
+                v3 = v;
+            }
+
+            v--;
+        }
+
+        i += v3;
+    } 
+
+    return num;
+};
+
+var start = Date.now();
+
+console.log(jump([2,3,1,1,4]) == 2);
+console.log(jump([3,2,1]) == 1);
+console.log(jump([2,3,1]) == 1);
+console.log(jump([2,3,1,2,3,4,1,2,3]));
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

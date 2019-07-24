@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+    <p></p>
+</body>
+<script>
+var get = function (v, arr) {
+    let _arr = [];
+    let i = 0;
+    let len = arr.length;
+    let _arr2 = null;
+
+    if (len == 0) {
+        return [[v]];
+    } else if (len == 1) {
+        return [[v, arr[0]]];
+    }
+
+    while (i < len) {
+        _arr2 = [].concat(arr);
+        _arr2.splice(i, 1)
+        _arr = _arr.concat(get(arr[i], _arr2));
+        i++;
+    }
+
+    _arr.forEach((item) => {
+        item.unshift(v)
+    });
+
+    return _arr;
+}
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function(nums) {
+    var i = 0;
+    var len = nums.length;
+    var arr = [];
+    var _arr = null;
+
+    while (i < len) {
+        _arr = [].concat(nums);
+        _arr.splice(i, 1)
+        arr = arr.concat(get(nums[i], _arr));
+        i++;
+    }
+
+    return arr;
+};
+var start = Date.now();
+
+console.log(permute([1,2,3]));
+console.log(permute([1]));
+console.log(permute([1,3,4,5]));
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>
