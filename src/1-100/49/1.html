@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+    <p></p>
+</body>
+<script>
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function(strs) {
+    var cache = {};
+    var arr = [];
+
+    strs.forEach(item => {
+      var str = item.split('').sort().join('');
+
+      if (cache[str]) {
+        cache[str].push(item);
+      } else {
+        let _arr = [item];
+        cache[str] = _arr;
+        arr.push(_arr);
+      }
+    });
+
+    return arr;
+};
+var start = Date.now();
+
+console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>
