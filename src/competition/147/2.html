@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+let board = ["abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"];
+let board2 = {};
+
+board.forEach(function(item,index) {
+    let arr = item.split('');
+
+    arr.forEach((v, i) => {
+        board2[v] = [index, i]
+    })
+});
+
+/**
+ * @param {string} target
+ * @return {string}
+ */
+var alphabetBoardPath = function(target) {
+    let arr = target.split('');
+    let cur = [0,0];
+    let str = '';
+
+    arr.forEach((v, i) => {
+        let nP = board2[v];
+
+        // 额外处理一下，防止在z的位置，需要向右移动；
+        if(cur[0] > nP[0]) {
+            cur[0] = cur[0] - 1;
+            str += 'U';
+        }
+        
+        while (cur[1] != nP[1]) {
+            if(cur[1] > nP[1]) {
+                cur[1] = cur[1] - 1;
+                str += 'L';
+            } else {
+                cur[1] = cur[1] + 1;
+                str += 'R';
+            }
+        }
+
+        while (cur[0] != nP[0]) {
+            if(cur[0] > nP[0]) {
+                cur[0] = cur[0] - 1;
+                str += 'U';
+            } else {
+                cur[0] = cur[0] + 1;
+                str += 'D';
+            }
+        }
+
+        str += '!'
+    })
+
+    return str;
+};
+
+var start = Date.now();
+
+console.log(alphabetBoardPath("leet") , "DDR!UURRR!!DDD!");
+console.log(alphabetBoardPath("code") , "RR!DDRR!UUL!R!");
+console.log(alphabetBoardPath("zdz") , "DDDDD!UUUUURRR!DDDDLLLD!");
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

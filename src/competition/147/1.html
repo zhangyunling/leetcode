@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var cache = {
+
+};
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var tribonacci = function(n) {
+
+    if (n == 0) {
+        return 0;
+    } else if (n <= 2) {
+        return 1;
+    }
+
+    let nStr = '' + n;
+
+    if (!cache[nStr]) {
+        cache[nStr] = tribonacci(n-3) + tribonacci(n-2) + tribonacci(n-1);
+    }
+
+    return cache[nStr];
+};
+
+var start = Date.now();
+
+console.log(tribonacci(25) , "1389537");
+console.log(tribonacci(4) , "4");
+console.log(tribonacci(35) , "1389537");
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>
