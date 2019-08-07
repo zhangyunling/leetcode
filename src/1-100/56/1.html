@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+var merge = function(intervals) {
+    intervals.sort((p1,p2) => {
+        return p1[0] - p2[0];
+    });
+
+    var i = 0;
+    var v1 = intervals[i++];
+    var v2 = null;
+
+    if (intervals.length <= 1) {
+        return intervals;
+    }
+
+    while (i < intervals.length) {
+        v2 = intervals[i];
+
+        if (v1[1] >= v2[1]) {
+            // 包含了；
+            intervals.splice(i, 1);
+            continue;
+        } else {
+            if (v1[1] < v2[0]) {
+                // 未交叉
+                v1 = v2;
+                i++;
+            } else {
+                v1[1] = v2[1];
+                intervals.splice(i, 1);
+            }
+        }
+    }
+
+    return intervals;
+};
+
+var start = Date.now();
+ console.log(merge([[1,3],[2,6],[8,10],[15,18]]).join(';') === [[1,6],[8,10],[15,18]].join(';'));
+ console.log(merge([[1,4],[4,5]]).join(';') === [[1,5]].join(';'));
+ console.log(merge([[1,4],[0,1]]).join(';') === [[0,4]].join(';'));
+ console.log(merge([[1,4],[2,3]]).join(';') === [[1,4]].join(';'));
+ console.log(merge([[2,3],[4,5],[6,7],[8,9],[1,10]]).join(';') === [[1,10]].join(';'));
+console.log((Date.now() - start)/1000);
+</script>
+</html>
