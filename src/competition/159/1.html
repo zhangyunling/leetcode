@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[][]} coordinates
+ * @return {boolean}
+ */
+var checkStraightLine = function(coordinates) {
+    let len = coordinates.length;
+    if (len <= 2) {
+        return true;
+    }
+
+    let v1 = coordinates[0];
+    let v2 = coordinates[1];
+
+    let i = 2;
+    if (v1[0] === v2[0]) {
+        while(i < len) {
+            if (coordinates[i][0] !== v1[0]) {
+                return false;
+            }
+            i++;
+        }
+    } else if(v1[1] === v2[1]) {
+        while(i < len) {
+            if (coordinates[i][1] !== v1[1]) {
+                return false;
+            }
+            i++;
+        }
+    } else {
+        let line = (v2[1] - v1[1]) / (v2[0] - v1[0]);
+        let line2 = 0;
+        while(i < len) {
+            line2 = (coordinates[i][1] - v1[1]) / (coordinates[i][0] - v1[0]);
+            if (line2 !== line) {
+                return false;
+            }
+            i++;
+        }
+    }
+
+    return true;
+};
+
+var start = Date.now();
+
+console.log(checkStraightLine([[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]) , "true");
+console.log(checkStraightLine([[1,1],[2,2],[3,4],[4,5],[5,6],[7,7]]) , "false");
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

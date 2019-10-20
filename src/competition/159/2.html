@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string[]} folder
+ * @return {string[]}
+ */
+var removeSubfolders = function(folder) {
+    if (folder.length <= 1) {
+        return folder;
+    }
+
+    folder.sort();
+
+    let i = 1;
+    let first = folder[0] + '/';
+    let v = '';
+
+    while (i < folder.length) {
+        v = folder[i] + '/'
+        if (v.indexOf(first) === 0) {
+            folder.splice(i, 1);
+        } else {
+            first = v;
+            i++; 
+        }
+    }
+
+    return folder;
+};
+
+var start = Date.now();
+
+console.log(removeSubfolders(["/a","/a/b","/c/d","/c/d/e","/c/f"]) , ["/a","/c/d","/c/f"]);
+console.log(removeSubfolders(["/a","/a/b/c","/a/b/d"]) , ["/a"]);
+console.log(removeSubfolders(["/a/b/c","/a/b/d","/a/b/ca"]) , ["/a/b/c","/a/b/ca","/a/b/d"]);
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

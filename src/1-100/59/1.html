@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number} n
+ * @return {number[][]}
+ */
+var generateMatrix = function(n) {
+  var arr = [];
+  var i = 0;
+  var j = 0;
+  var v = 1;
+  var dir = 0;
+
+  if (n == 1) {
+    return [[1]];
+  }
+
+  for (i; i < n;i++) {
+    arr.push([]);
+  }
+
+  i = 0;
+
+  while (!arr[i][j]) {
+    arr[i][j] = v++;
+
+    if (dir == 0) {
+      // 向右；
+      if (j == n-1 || arr[i][j+1]) {
+        dir = 1;
+        i++;
+      } else {
+        j++;
+      }
+    } else if (dir == 1) {
+      if (i == n-1 || arr[i+1][j]) {
+        dir = 2;
+        j--;
+      } else {
+        i++;
+      }
+      // 向下
+    } else if (dir == 2) {
+      // 向左
+      if (j == 0 || arr[i][j-1]) {
+        dir = 3;
+        i--;
+      } else {
+        j--;
+      }
+    } else {
+      // 向上
+      if (arr[i-1][j]) {
+        dir = 0;
+        j++;
+      } else {
+        i--;
+      }
+    }
+  }  
+
+  return arr;
+};
+
+var start = Date.now();
+ console.log(generateMatrix(1));
+ console.log(generateMatrix(2));
+ console.log(generateMatrix(3));
+ console.log(generateMatrix(4));
+ 
+
+
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

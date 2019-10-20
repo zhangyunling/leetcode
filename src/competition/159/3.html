@@ -1,0 +1,106 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+var proxy = {};
+
+var initProxy = function () {
+  var i1 = 0;
+  var i2 = 0;
+  var i3 = 0;
+  var i4 = 0;
+  var word = ["E", "Q", "R", "W"];
+  var key = '';
+
+  for (i1= 0; i1< 4; i1++) {
+    for (i2= 0; i2< 4; i2++) {
+      for (i3= 0; i3< 4; i3++) {
+        for (i4= 0; i4< 4; i4++) {
+          key = word[i1] + word[i2] + word[i3] + word[i4]
+          proxy[key] = balancedString2(key);
+        }
+      }
+    }
+  }
+}
+
+var balancedString2 = function (s) {
+  var cache = {
+    'Q': 1,
+    'W': 1,
+    'E': 1,
+    'R': 1,
+  };
+  var i = 0;
+  var len = s.length;
+  var r = 0;
+
+  while (i < len) {
+    cache[s[i]]--;
+    i++;
+  }
+
+  // 四个相同的；
+  if (cache.Q == -3 || cache.W == -3 || cache.E == -3 || cache.R == -3) {
+    return 1;
+  }
+
+  if (cache.Q == -2 && s.indexOf('QQ') != -1) {
+    r = -1;
+  }
+
+  if (cache.W == -2 && s.indexOf('WW') != -1) {
+    r = -1;
+  }
+
+  if (cache.E == -2 && s.indexOf('EE') != -1) {
+    r = -1;
+  }
+
+  if (cache.R == -2 && s.indexOf('RR') != -1) {
+    r = -1;
+  }
+
+  return r + (Math.abs(cache.Q) + Math.abs(cache.W) + Math.abs(cache.E) + Math.abs(cache.R)) / 2;
+}
+initProxy();
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var balancedString = function(s) {
+    var len = s.length / 4;
+    var r = 0;
+    var i = 0;
+    
+    while (i < len) {
+      r += proxy[s.substring(0 + i*4, 4 + i*4)];
+      i++;
+    }
+
+    return r;
+};
+var start = Date.now();
+
+console.log(balancedString("QWER") , 0);
+console.log(balancedString("QQWE") , 1);
+console.log(balancedString("QQQW") , 2);
+console.log(balancedString("QQQQ") , 3);
+console.log(balancedString("WWEQERQWQWWRWWERQWEQ") , 4);
+console.log(balancedString("WWQQRRRRQRQQ") , 4);
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>
