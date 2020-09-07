@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var removeDuplicates = function(S) {
+    var arr = S.split('');
+    var result = [];
+    var i = 0;
+
+    while (i < arr.length) {
+        let v = arr[i];
+        let len = result.length;
+
+        if (!len || result[len-1] !== v) {
+            result.push(v);
+        } else {
+            result.pop();
+        }
+        i++;
+    }
+    
+    return result.join('');
+};
+var start = Date.now();
+console.log(removeDuplicates("abbaca"),'ca')
+console.log(removeDuplicates("aaaaaaaa"),'')
+console.log(removeDuplicates("aaaaaaaaa"),'a')
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

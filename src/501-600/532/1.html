@@ -1,0 +1,86 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findPairs = function(nums, k) {
+    var str = ',' + nums.join(',,') + ',';
+    var count = 0;
+    var result = '';
+
+    if (k < 0) {
+        return 0;
+    }
+
+    function checkAvi (v1, v2) {
+        var v3 = `,${v1},${v2},`;
+        var v4 = `,${v2},${v1},`;
+
+        if (result.indexOf(v3) === -1 && result.indexOf(v4) === -1) {
+            result += v3;
+            count++;
+        }
+    }
+
+    nums.forEach((item) => {
+        var v = ',' + item + ',';
+
+        // 移除当前的数字；
+        str = str.replace(v, '');
+        var v1 = '' + (item - k);
+        var v2 = '' + (k + item);
+
+        if (str.indexOf(',' + v1 + ',') != -1) {
+            checkAvi(v1, item);
+        }
+
+        if (str.indexOf(',' + v2 + ',') != -1) {
+            checkAvi(v2, item);
+        }
+    });
+
+    return count;
+};
+
+var start = Date.now();
+console.log(findPairs([3, 1, 4, 1, 5], 2), 2);
+console.log(findPairs([1, 2, 3, 4, 5], 1), 4);
+console.log(findPairs([1, 3, 1, 5, 4], 0), 1);
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

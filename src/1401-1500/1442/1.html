@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var countTriplets = function(arr) {
+    let j = 1;
+    let len = arr.length;
+
+    // 如果 <= 1
+    if (len <= 1) {
+        return 0;
+    }
+    if (len <= 2) {
+        return arr[0] === arr[1] ? 1 : 0;
+    }
+
+    let arr1 = [];
+    let num = 0;
+    while (j < len) {
+        let i = j-1;
+        let proxy = {};
+
+        // 遍历循环
+        while (i >= 0) {
+            if (arr1[i] === undefined) {
+                arr1[i] = arr[i];
+                proxy['' + arr[i]] = 1;
+            } else {
+                arr1[i] ^= arr[j-1];
+                let key = '' + arr1[i];
+                proxy[key] = (proxy[key] || 0) + 1;
+            }
+            i--;
+        }
+
+        let str = ',' + arr1.join(',') + ',';
+        let k = j;
+        let v = 0;
+
+        while (k < len) {
+            v ^= arr[k];
+
+            if (str.indexOf(',' + v + ',') !== -1) {
+                num += proxy['' + v];
+            }
+
+            k++;
+        }
+        j++;
+    }
+
+    return num;
+};
+
+var start = Date.now();
+console.log(countTriplets([2,3,1,6,7]), 4)
+console.log(countTriplets([1,1,1,1,1]), 10)
+console.log(countTriplets([2,3]), 0)
+console.log(countTriplets([1,3,5,7,9]), 3)
+console.log(countTriplets([7,11,12,9,5,2,7,17,22]), 8)
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

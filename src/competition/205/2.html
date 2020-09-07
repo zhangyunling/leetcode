@@ -1,0 +1,99 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var numTriplets = function(nums1, nums2) {
+    let obj1 = {};
+    let obj2 = {};
+    let count = 0;
+    const countFn = function (arr, index) {
+        arr.forEach((item) => {
+            if (item > index) {
+                count++;
+            }
+        });
+    }
+
+    nums1.forEach((item, index) => {
+        let key = 'i' + item;
+
+        if (!obj1[key]) {
+            obj1[key] = []
+        }
+
+        obj1[key].push(index);
+    });
+
+    nums2.forEach((item, index) => {
+        let key = 'i' + item;
+
+        if (!obj2[key]) {
+            obj2[key] = []
+        }
+
+        obj2[key].push(index);
+    });
+
+    nums1.forEach((item, index1) => {
+        // nums1[i]2 == nums2[j] * nums2[k]
+        let v = item * item;
+
+        nums2.forEach((item2, index) => {
+            if (v % item2 !== 0) {
+                return;
+            }
+
+            let v2 = obj2['i' + (v / item2)];
+
+            if (v2) {
+                countFn(v2, index);
+            }
+        });
+    });
+
+    nums2.forEach((item, index1) => {
+        let v = item * item;
+
+        nums1.forEach((item2, index) => {
+            if (v % item2 !== 0) {
+                return;
+            }
+
+            let v2 = obj1['i' + (v / item2)];
+
+            if (v2) {
+                countFn(v2, index);
+            }
+        });
+    });
+
+    return count;
+};
+
+var start = Date.now();
+
+console.log(numTriplets([7,4], [5,2,8,9]) , 1);
+console.log(numTriplets([1,1], [1,1,1]) , 9);
+console.log(numTriplets([7,7,8,3], [1,2,9,7]) , 2);
+console.log(numTriplets([4,7,9,11,23], [3,5,1024,12,18]) , 0);
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

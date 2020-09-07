@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var countServers = function(grid) {
+    let i = 0;
+    let j = 0;
+    let lenx = grid.length;
+    let leny = grid[0].length;
+    let arrX = [];
+    let arrY = [];
+    let count = 0;
+
+    while (i < leny) {
+        arrX[i] = 0;
+        i++;
+    }
+
+    while (j < lenx) {
+        arrY[j] = 0;
+        j++;
+    }
+
+    for (i=0; i < lenx; i++) {
+        for (j = 0; j < leny; j++) {
+            if (grid[i][j] === 1) {
+                arrX[i]++;
+                arrY[j]++;
+            }
+        }
+    } 
+
+    for (i=0; i < lenx; i++) {
+        let hasX = arrX[i] >= 2;
+        for (j = 0; j < leny; j++) {
+            let isVaild = grid[i][j] === 1;
+
+            if (isVaild) {
+                if (hasX) {
+                    count++;
+                } else if (arrY[j] >= 2) {
+                    count++;
+                }
+            }
+        }
+    } 
+
+    return count;
+};
+var start = Date.now();
+// console.log(countServers([[1,0],[0,1]]), 0)
+// console.log(countServers([[1,0],[1,1]]), 3)
+// console.log(countServers([[1,1,0,0],[0,0,1,0],[0,0,1,0],[0,0,0,1]]), 4)
+console.log(countServers([[1,0,0,1,0],[0,0,0,0,0],[0,0,0,1,0]]), 3)
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var checkSubarraySum = function(nums, k) {
+    let i = 0;
+    let j = 0;
+    let len = nums.length;
+
+    while (i < len - 1) {
+        j = i + 1;
+        let count = nums[i];
+
+        while (j < len) {
+            count += nums[j];
+
+            if (count % k === 0) {
+                return true;
+            }
+            j++;
+        }
+        i++;
+    }
+    return false;
+};
+var start = Date.now();
+console.log(checkSubarraySum([23,2,4,6,7], 6), true);
+console.log(checkSubarraySum([23,2,6,4,7], 6), true);
+
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

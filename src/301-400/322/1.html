@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+var coinChange = function(coins, amount) {
+    var len = coins.length - 1;
+    var count = amount;
+    var num = 0;
+    var coinObj = {};
+    var res = [];
+
+    // 方便后面查找；
+    coins.forEach(function (item, index) {
+        coinObj['' + item] = 1;
+    });
+
+    // c
+    var cb = function (index, count) {
+        var v = coins[index];
+        var len2 = 0;
+        var o = count % v;
+        var len = Math.floor(count / v);
+
+        // 如果index < 0，则直接返回0；
+        if (index < 0) {
+            return [0];
+        }
+
+        if (o === 0) {
+            return [len];
+        } else if (v > count) {
+            return cb(index-1, count);
+        }
+        
+        // 分别使用len，做递归，若执行到最后，则
+        // 则表示无法匹配；
+        while (len) {
+            len2 = cb(len - 1, count - v * len);
+            len--;
+        }
+
+        return [len];
+    }
+
+    while (len) {
+        num = cb(len--, amount);
+
+        if (num != -1) {
+            res.push(num);
+        }
+    }
+
+    return res.length ? Math.min.apply(Math, res) : -1;
+};
+
+var start = Date.now();
+
+console.log(coinChange([1, 2, 5], 11), 3)
+console.log(coinChange([2], 3), -1)
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

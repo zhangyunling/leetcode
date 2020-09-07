@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var modifyString = function(s) {
+    const arr = s.split('');
+    const len = arr.length;
+    let i = 0;
+
+    while (i < len) {
+        let cur = arr[i];
+
+        if (cur === '?') {
+            let prev = arr[i - 1] || '';
+            let next = arr[i + 1] || '';
+
+            // 如果后面一个是"?"，
+            // 那么当前的只需要考虑与前一个不同即可；
+            if (next === '?' || next === '') {
+                if (prev !== 'a') {
+                    arr[i] = 'a';
+                } else {
+                    arr[i] = 'b';
+                }
+            } else {
+                // 下一个不是问好;
+                if (prev === next) {
+                    arr[i] = prev === 'a' ? 'b' : 'a';
+                } else {
+                    if (prev === 'a') {
+                        arr[i] = next === 'b' ? 'c' : 'b';
+                    } else if (next === 'a') {
+                        arr[i] = prev === 'b' ? 'c' : 'b';
+                    } else {
+                        arr[i] = 'a' 
+                    }
+                }
+            }
+        }
+        i++;
+    }
+
+    return arr.join('')
+};
+
+var start = Date.now();
+
+console.log(modifyString("?zs") , "azs");
+console.log(modifyString("ubv?w") , "ubvaw");
+console.log(modifyString("j?qg??b") , "jaqgacb");
+console.log(modifyString("??yw?ipkj?") , "acywaipkja");
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

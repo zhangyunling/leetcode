@@ -20,16 +20,102 @@
  * @return {string}
  */
 var getPermutation = function(n, k) {
-    var rank = 0;
+    var cache = [];
+    var i = 0;
+    var arr = [];
+    var res = '';
+    var v = 1;
 
-    while (rank < k) {
-      
+    // 设置arr的初始化数组
+    while (i < n) {
+      arr.push(++i);
+      v = v * i;
+      cache.push(v);
     }
+    
+    // 第一个
+    if (k == 1) {
+      return arr.join('');
+    }
+
+    // 如果是最大的值
+    if (cache[i-1] === k) {
+      return arr.reverse().join('');
+    }
+
+    // 移除最大的元素；
+    i = i -2;
+    cache.pop();
+
+    while (i) {
+      if (k < cache[i]) {
+        res += arr.shift();
+        cache.pop();
+        i--;
+      } else if (k === cache[i]) {
+        res += arr.shift() + arr.reverse().join('');
+        return res;
+      } else {
+        break;
+      }
+    }
+    var index = 1;
+    while (cache.length) {
+      v = cache.pop();
+      if (k === 1) {
+        return res + arr.join('');;
+      } else if (v === k) {
+        return res + arr.shift() + arr.reverse().join('');
+      } else {
+        var kk = k / v;
+        k = k % v;
+
+        if (k === 0) {
+          kk = kk - 1;
+        }
+        res += arr.splice(Math.floor(kk), 1)[0];
+
+        if (k === 0) {
+          res += arr.reverse().join('');
+          return res;
+        }
+      }
+    }
+
+    return res;
 };
 
 var start = Date.now();
- console.log(getPermutation(3, 3), 213);
- console.log(getPermutation(4, 9), 2314);
+ console.log(getPermutation(3, 1) == 123);
+ console.log(getPermutation(3, 2) == 132);
+ console.log(getPermutation(3, 3) == 213);
+ console.log(getPermutation(3, 4) == 231);
+ console.log(getPermutation(3, 5) == 312);
+ console.log(getPermutation(3, 6) == 321);
+ console.log(getPermutation(4, 1) == 1234);
+ console.log(getPermutation(4, 2) == 1243);
+ console.log(getPermutation(4, 3) == 1324);
+ console.log(getPermutation(4, 4) == 1342);
+ console.log(getPermutation(4, 5) == 1423);
+ console.log(getPermutation(4, 6) == 1432);
+ console.log(getPermutation(4, 7) == 2134);
+ console.log(getPermutation(4, 8) == 2143);
+ console.log(getPermutation(4, 9) == 2314);
+ console.log(getPermutation(4, 10) == 2341);
+ console.log(getPermutation(4, 11) == 2413);
+ console.log(getPermutation(4, 12) == 2431);
+ console.log(getPermutation(4, 13) == 3124);
+ console.log(getPermutation(4, 14) == 3142);
+ console.log(getPermutation(4, 15) == 3214);
+ console.log(getPermutation(4, 16) == 3241);
+ console.log(getPermutation(4, 17) == 3412);
+ console.log(getPermutation(4, 18) == 3421);
+ console.log(getPermutation(4, 19) == 4123);
+ console.log(getPermutation(4, 20) == 4132);
+ console.log(getPermutation(4, 21) == 4213);
+ console.log(getPermutation(4, 22) == 4231);
+ console.log(getPermutation(4, 23) == 4312);
+ console.log(getPermutation(4, 24) == 4321);
 
 
 console.log((Date.now() - start)/1000);

@@ -1,0 +1,111 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var rotateRight = function(head, k) {
+  var p1 = head;
+  var p2 = head;
+  var p3 = null;
+  var pLen = 0;
+  var i = 0;
+
+  if (!head || !head.next || !k) {
+    return head;
+  }
+
+  while (i < k) {
+    if (!p1.next) {
+      p1 = head;
+    } else {
+      p1 = p1.next;
+    }
+    i++;
+  }
+
+  // 表示正好循环了一圈
+  if (p1 === p2) {
+    return p2;
+  }
+
+  while (p1.next) {
+    p1 = p1.next;
+    p2 = p2.next;
+  }
+
+  p3 = p2.next;
+  p2.next = null;
+  p1.next = head;
+
+  return p3;
+};
+
+var start = Date.now();
+
+ console.log(rotateRight({
+  val: 1,
+  next: {
+    val: 2,
+    next: {
+      val: 3,
+      next: {
+        val: 4,
+        next: {
+          val: 5,
+          next: null
+        }
+      }
+    }
+  }
+ }, 2));
+
+ console.log(rotateRight({
+  val: 0,
+  next: {
+    val: 1,
+    next: {
+      val: 2,
+      next: null
+    }
+  }
+ }, 4));
+
+ console.log(rotateRight({
+  val: 1,
+  next: null
+ }, 1));
+
+ console.log(rotateRight({
+  val: 1,
+  next: {
+    val: 2,
+    next: null
+  }
+ }, 2));
+console.log((Date.now() - start)/1000);
+
+</script>
+</html>

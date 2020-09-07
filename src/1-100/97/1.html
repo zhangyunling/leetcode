@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+
+<script>
+/**
+ * @param {string} s1
+ * @param {string} s2
+ * @param {string} s3
+ * @return {boolean}
+ */
+var isInterleave = function(s1, s2, s3) {
+    // 如果长度不等，那么肯定不行的啊；
+    if (s1.length + s2.length !== s3.length) {
+        return false;
+    }
+
+    const fn = (s1, s2, s3) => {
+        while (s3) {
+            // 若其中一个字符串为空字符串，那么另外一个字符串要与s3剩余数据相等；
+            if (!s1 || !s2) {
+                return s3 === (s1 || s2)
+            }
+
+            // 取出s3的第一个字符；
+            let v = s3.substr(0,1);
+            s3 = s3.substring(1, s3.length);
+
+            // 若都相等，那么就直接开始回溯；
+            if (v === s1[0] && v === s2[0]) {
+                // 分两条数据，执行；
+                // 只要有一条是返回true的即可；
+                return fn(s1.substring(1, s1.length), s2, s3) || fn(s1, s2.substring(1, s2.length), s3);
+            } else if (v === s1[0]) {
+                // s1把最前面的推出
+                s1 = s1.substring(1, s1.length);
+            } else if (v === s2[0]) {
+                s2 = s2.substring(1, s2.length);
+            } else {
+                // 此时表示失败
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    return fn(s1, s2, s3);
+};
+var start = Date.now();
+console.log(isInterleave( "aabcc", "dbbca", "aadbbcbcac"), true);
+console.log(isInterleave("aabcc", "dbbca", "aadbbbaccc"), false);
+console.log(isInterleave("cbcccbabbccbbcccbbbcabbbabcababbbbbbaccaccbabbaacbaabbbc", "abcbbcaababccacbaaaccbabaabbaaabcbababbcccbbabbbcbbb", "abcbcccbacbbbbccbcbcacacbbbbacabbbabbcacbcaabcbaaacbcbbbabbbaacacbbaaaabccbcbaabbbaaabbcccbcbabababbbcbbbcbb"), false);
+console.log(isInterleave("bbbbbabbbbabaababaaaabbababbaaabbabbaaabaaaaababbbababbbbbabbbbababbabaabababbbaabababababbbaaababaa", "babaaaabbababbbabbbbaabaabbaabbbbaabaaabaababaaaabaaabbaaabaaaabaabaabbbbbbbbbbbabaaabbababbabbabaab", "babbbabbbaaabbababbbbababaabbabaabaaabbbbabbbaaabbbaaaaabbbbaabbaaabababbaaaaaabababbababaababbababbbababbbbaaaabaabbabbaaaaabbabbaaaabbbaabaaabaababaababbaaabbbbbabbbbaabbabaabbbbabaaabbababbabbabbab"), false);
+
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

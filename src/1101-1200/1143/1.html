@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} text1
+ * @param {string} text2
+ * @return {number}
+ */
+var longestCommonSubsequence = function(text1, text2) {
+    const dpArr = [[]];
+    const dpFn = (x, y) => {
+        let i = 0;
+        let j = 0;
+        // 先初始化第一行和第一列
+        for (j; j <= y; j++) {
+            dpArr[0].push(0);
+        }
+
+        for (i = 1; i <= x; i++) {
+            dpArr.push([0]);
+        }
+
+        for (j = 1; j <= y; j++) {
+            for (i = 1; i <= x; i++) {
+                let curMax = 0
+                if (text1.charAt(i - 1) === text2.charAt(j - 1)) {
+                    curMax = 1 + dpArr[i-1][j-1]
+                } else {
+                    curMax = Math.max(dpArr[i][j-1], dpArr[i-1][j])
+                }
+
+                dpArr[i][j] = curMax;
+            }
+        }
+
+        return dpArr[x][y]
+    }
+
+    return dpFn(text1.length, text2.length);
+};
+var start = Date.now();
+console.log(longestCommonSubsequence("abcde", "ace" ), 3)
+console.log(longestCommonSubsequence("abc", "abc"), 3)
+console.log(longestCommonSubsequence("abc", "def"), 0)
+console.log(longestCommonSubsequence("bl", "yby"), 1)
+console.log(longestCommonSubsequence("bsbininm", "jmjkbkjkv"), 1)
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

@@ -1,0 +1,72 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var findNthDigit = function(n) {
+    var arr = [];
+    if (n <= 9) {
+        return n;
+    }
+
+    n -= 9;
+
+    let i = 2;
+    let all = 0;
+
+    while (n > all) {
+        all = i * 9 * Math.pow(10, i - 1);
+
+        if (n > all) {
+            n -= all;
+            i++;
+        }
+    }
+        
+    // 如果n = 0，那么是前一个的最后一个值，9；
+    if (n === 0) {
+        return 9;
+    }
+
+    // 此次表示，当前要找的数据，是在长度为i的长度里；
+    let num = Math.pow(10, i - 1) + Math.floor(n / i);
+    let v2 = n % i;
+    let str = '';
+
+    // console.log(n, i, v2, num);
+    // 如果v2是0，那么就表示为num的最后一位数；
+    if (v2 === 0) {
+        v2 = i;
+        str = '' + (num - 1);
+    } else {
+        str = '' + num;
+    }
+
+    // 如果n已经比all小了；
+    return str.substr(v2-1, 1) * 1;
+};
+
+var start = Date.now();
+// console.log(findNthDigit(3), 3)
+// console.log(findNthDigit(11), 0)
+// console.log(findNthDigit(10), 1)
+console.log(findNthDigit(30), 2)
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

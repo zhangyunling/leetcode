@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestPalindromeSubseq = function(s) {
+    const arr1 = s.split('');
+    const arr2 = s.split('').reverse();
+    const dpArr = [[]];
+    const len = arr1.length;
+    let i = 0;
+    let j = 0;
+
+    // 先初始化第一行和第一列
+    for (j; j <= len; j++) {
+        dpArr[0].push(0);
+    }
+
+    for (i = 1; i <= len; i++) {
+        dpArr.push([0]);
+    }
+
+    for (j = 1; j <= len; j++) {
+        for (i = 1; i <= len; i++) {
+            let curMax = 0
+            if (arr1[i - 1] === arr2[j - 1]) {
+                curMax = 1 + dpArr[i-1][j-1]
+            } else {
+                curMax = Math.max(dpArr[i][j-1], dpArr[i-1][j])
+            }
+
+            dpArr[i][j] = curMax;
+        }
+    }
+
+    return dpArr[len][len];
+};
+var start = Date.now();
+console.log(longestPalindromeSubseq("bbbab"), 4);
+console.log(longestPalindromeSubseq("cbbd"), 2);
+
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

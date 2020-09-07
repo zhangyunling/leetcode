@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="测试加密">
+<meta name="description" content="测试加密">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var minSteps = function(n) {
+    let count = 0;
+    let flag = true;
+
+    if (n <= 1) {
+        return 0;
+    }
+
+    while (flag) {
+        flag = false;
+        let i = 2;
+
+        while (i < n) {
+            if (n % i === 0) {
+                // 表示可整除；
+                count += i;
+                flag = true;
+                n = n / i;
+                break;
+            }
+            i++;
+        }
+    }
+
+    return count + n;
+};
+
+var start = Date.now();
+console.log(minSteps(1), 0);
+console.log(minSteps(2), 2);
+console.log(minSteps(3), 3);
+console.log(minSteps(4), 4);
+console.log(minSteps(6), 5);
+console.log(minSteps(7), 7);
+console.log(minSteps(8), 6);
+console.log(minSteps(9), 6);
+console.log(minSteps(10), 7);
+console.log(minSteps(11), 11);
+
+console.log(Date.now() - start);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

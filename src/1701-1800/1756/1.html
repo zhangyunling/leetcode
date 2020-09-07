@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var missingTwo = function(nums) {
+    let i = 0;
+    let len = nums.length;
+    let maxLen = nums.length + 2;
+    let result = (len + 1) ^ (len + 2);
+    let str = '';
+
+    while (i < len) {
+        result = result ^ (i+1) ^ nums[i];
+        i++;
+        str += ',' + nums[i] + ','
+    }
+
+    i = 0;
+    while (i < maxLen) {
+        let v1 = i + 1;
+        let v2 = result ^ v1;
+
+        if (v2 < maxLen && v2 > 0 && v1 !== v2 && str.indexOf(','+v1+',') === -1 && str.indexOf(','+v2+',') === -1) {
+            return [v1, v2];
+        }
+        i++;
+    }
+
+    return []
+};
+
+var start = Date.now();
+console.log(missingTwo([2,3]), [1,4])
+console.log(missingTwo([1]), [2,3])
+console.log(missingTwo([1, 2, 3, 4, 6, 7, 9, 10]), [5,8])
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>
