@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {string} text
+ * @return {string}
+ */
+var getSpace = function (num) {
+    let space = '';
+    for (let i = 0; i < num; i++) {
+        space += ' ';
+    }
+
+    return space;
+}
+var reorderSpaces = function(text) {
+    var spaceNum = 0;
+    var words = [];
+    var len = text.length;
+    var index = 0;
+    var word = '';
+    var v = '';
+
+    while (index < len) {
+        v = text[index];
+        if (v === ' ') {
+            spaceNum++;
+
+            // 若前一个word有值，那么保存，并清空
+            if (word) {
+                words.push(word);
+                word = '';
+            }
+        } else {
+            word += v;
+        }
+
+        index++;
+    }
+
+    if (word) {
+        words.push(word);
+        word = '';
+    }
+
+    let wordLen = words.length;
+    if (wordLen <= 2) {
+        return words[0] + getSpace(spaceNum) + (words[1] || '')
+    }
+
+    var space1 = Math.floor(spaceNum / (wordLen - 1));
+    var space2 = spaceNum % (wordLen - 1);
+
+    return words.join(getSpace(space1)) + getSpace(space2);
+};
+
+var start = Date.now();
+
+console.log(reorderSpaces("  this   is  a sentence ") == "this   is   a   sentence");
+console.log(reorderSpaces(" practice   makes   perfect") == "practice   makes   perfect ");
+console.log(reorderSpaces("hello   world") == "hello   world");
+console.log(reorderSpaces("  walks  udp package   into  bar a") == "walks  udp  package  into  bar  a ");
+console.log(reorderSpaces("a") == "a");
+console.log(reorderSpaces("a ") == "a ");
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minInsertions = function(s) {
+  const arr = s.split('');
+  let num = 0;
+  let cache = [];
+
+  let index = 0;
+  let len = arr.length;
+
+  while (index < len) {
+    let key = arr[index];
+    if (key === '(') {
+        cache.push('(');
+    } else {
+        let nextKey = arr[index + 1];
+        if (nextKey === ')') {
+            index++;
+            if (cache.length) {
+                cache.pop();
+            } else {
+                num++;
+            }
+        } else {
+            num++;
+            if (cache.length) {
+                cache.pop();
+            } else {
+                num++;
+            }
+        }
+    }
+    index++;
+  }
+
+  num += cache.length * 2;
+
+  return num;
+};
+
+var start = Date.now();
+
+console.log(minInsertions('(()))'), 1);
+console.log(minInsertions('())'), 0);
+console.log(minInsertions('))())('), 3);
+console.log(minInsertions('(((((('), 12);
+console.log(minInsertions(')))))))'), 5);
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

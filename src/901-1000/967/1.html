@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[]}
+ */
+const isUseFul = (num) => {
+    return num >= 0 && num <= 9;
+}
+var numsSameConsecDiff = function(n, k) {
+    let arr = [];
+    let first = 1;
+
+    while (first <= 9) {
+        let i = 1;
+        let arr2 = [];
+        let _arr = [first];
+
+        while (i < n) {
+            let _arr2 = []
+            _arr.forEach((v) => {
+                let n = v % 10;
+                let left = n - k;
+                let right = n + k;
+
+                if (k == 0 && isUseFul(left) ) {
+                    _arr2.push(v * 10 + n);
+                } else {
+                    if (isUseFul(left)) {
+                        _arr2.push(v * 10 + left);
+                    }
+
+                    if (isUseFul(right)) {
+                        _arr2.push(v * 10 + right);
+                    }
+                }
+            });
+            i++;
+            _arr = _arr2;
+        }
+
+        if (_arr[0] !== first) {
+            arr2 = _arr;
+        }
+
+        first++;
+        arr = [...arr, ...arr2];
+    }
+
+    return arr;
+};
+
+console.log(numsSameConsecDiff(3,7),[181,292,707,818,929])
+console.log(numsSameConsecDiff(2, 1),[10,12,21,23,32,34,43,45,54,56,65,67,76,78,87,89,98])
+console.log(numsSameConsecDiff(2, 0),[11,22,33,44,55,66,77,88,99])
+
+var start = Date.now();
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

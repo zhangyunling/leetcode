@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+/**
+ * @param {string[]} A
+ * @param {string[]} B
+ * @return {string[]}
+ */
+var wordSubsets = function(A, B) {
+    const cache = Object.create(null);
+    const res = [];
+    const create = (item) => {
+        let arr = item.split('');
+        let obj = Object.create(null);
+
+        arr.forEach((v) => {
+            if (obj[v]) {
+                obj[v] += 1;
+            } else {
+                obj[v] = 1;
+            }
+        });
+
+        return obj
+    }
+
+    B.forEach((item) => {
+        let obj = create(item);
+
+        for (let key in obj) {
+            if (cache[key]) {
+                cache[key] = Math.max(cache[key], obj[key])
+            } else {
+                cache[key] = obj[key];
+            }
+        }
+    });
+
+    const usefull = () => {
+
+    }
+    A.forEach((item) => {
+        let obj = create(item);
+        for (let key in cache) {
+            if (!obj[key] || obj[key] < cache[key]) {
+                return;
+            }
+        }
+
+        res.push(item);
+    });
+
+    return res;
+};
+
+console.log(wordSubsets(["amazon","apple","facebook","google","leetcode"], ["e","o"]), ["facebook","google","leetcode"]);
+console.log(wordSubsets(["amazon","apple","facebook","google","leetcode"], ["l","e"]), ["apple","google","leetcode"]);
+console.log(wordSubsets(["amazon","apple","facebook","google","leetcode"], ["e","oo"]), ["facebook","google"]);
+console.log(wordSubsets(["amazon","apple","facebook","google","leetcode"], ["lo","eo"]), ["google","leetcode"]);
+console.log(wordSubsets(["amazon","apple","facebook","google","leetcode"], ["ec","oc","ceo"]), ["facebook","leetcode"]);
+
+var start = Date.now();
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

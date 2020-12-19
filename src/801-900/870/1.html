@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+
+</body>
+<script>
+
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @return {number[]}
+ */
+var advantageCount = function(A, B) {
+  // 先对A数组进行升序排序
+  A.sort((p1, p2) => {
+    return p1 - p2;
+  });
+
+  const c = [];
+  let index = 0;
+  const len = B.length;
+
+  const getValue = (v) => {
+    let len = A.length;
+    let i = 0;
+    let key = i;
+
+    while (i < len) {
+      if (A[i] > v) {
+        key = i;
+        break;
+      }
+      i++;
+    }
+
+    const arr = A.splice(key, 1);
+
+    return arr[0];
+  }
+
+
+  while (index < len) {
+    c.push(getValue(B[index]));
+    index++;
+  }
+
+  return c;
+};
+var start = Date.now();
+
+console.log(advantageCount([2,7,11,15], [1,10,4,11]), [2,11,7,15]);
+console.log(advantageCount([12,24,8,32], [13,25,32,11]), [24,32,8,12]);
+console.log(advantageCount([2,0,4,1,2], [1,3,0,0,2]), [2,0,2,1,4]);
+
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

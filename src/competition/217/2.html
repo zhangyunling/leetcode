@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var mostCompetitive = function(nums, k) {
+  let len = nums.length;
+
+  if (len < k) {
+    return [];
+  } else if (len == k) {
+    return nums;
+  }
+
+  let res = [];
+  let cacheIndex = 0;
+
+  while (res.length < k) {
+    let maxIndex = len - k + res.length;
+    let minIndex = cacheIndex;
+    let minValue = nums[minIndex];
+
+    // 执行了这里，就先执行 +1；
+    cacheIndex++;
+
+    while (minIndex <= maxIndex) {
+      if (nums[minIndex] < minValue) {
+        minValue = nums[minIndex];
+        cacheIndex = minIndex + 1;
+      }
+      minIndex++;
+    }
+
+    res.push(minValue);
+  }
+
+  return res;
+};
+
+var start = Date.now();
+
+console.log(mostCompetitive([3,5,2,6], 2) , [2,6]);
+console.log(mostCompetitive([2,4,3,3,5,4,9,6], 4) , [2,3,3,4]);
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>

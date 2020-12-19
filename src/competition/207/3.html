@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="robots" content="all">
+<meta name="baiduspider" content="all">
+<meta name="googlebot" content="all">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>测试</title>
+</head>
+<body>
+</body>
+<script>
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var maxProductPath = function(grid) {
+  let dp3 = [];
+  let xLen = grid[0].length;
+  let yLen = grid.length;
+  
+  for (i = 0; i < yLen; i++) {
+    dp3.push([]);
+    for (let j = 0; j < xLen; j++) {
+      let v = grid[i][j]
+      let newV = null;
+      let xPrev = null;
+      let yPrev = null;
+
+      if (v === 0) {
+        newV = [0, 0];
+      } else {
+        if (i === 0) {
+          // 第一行，只计算从左到右；
+          if (j === 0) {
+            // 左上角第一个元素；
+            newV = [v, v]
+          } else {
+            xPrev = dp3[i][j - 1];
+            newV = newV = [Math.max(xPrev[0] * v, xPrev[1] * v), Math.min(xPrev[0] * v, xPrev[1] * v)];
+          }
+        } else {
+          if (j === 0) {
+            yPrev = dp3[i-1][j];
+            newV = newV = [Math.max(yPrev[0] * v, yPrev[1] * v), Math.min(yPrev[0] * v, yPrev[1] * v)];
+          } else {
+            xPrev = dp3[i][j - 1];
+            yPrev = dp3[i - 1][j];
+            newV = [Math.max(xPrev[0] * v, xPrev[1] * v, yPrev[0] * v, yPrev[1] * v), Math.min(xPrev[0] * v, xPrev[1] * v, yPrev[0] * v, yPrev[1] * v)]
+          }
+        }
+      }
+
+      dp3[i][j] = newV;
+    }
+  }
+
+  let last = dp3[yLen-1][xLen-1];
+  let max = Math.max(last[0], last[1]);
+
+  return max >= 0 ? (Math.abs(max) % (Math.pow(10, 9) + 7)) : -1;
+};
+var start = Date.now();
+
+console.log(maxProductPath([[-1,-2,-3],
+             [-2,-3,-3],
+             [-3,-3,-2]]) , -1);
+console.log(maxProductPath([[1,-2,1],
+             [1,-2,1],
+             [3,-4,1]]) , 8);
+console.log(maxProductPath([[1, 3],
+             [0,-4]]) , 0);
+
+console.log(maxProductPath([[ 1, 4,4,0],
+             [-2, 0,0,1],
+             [ 1,-1,1,1]]) , 2);
+console.log(maxProductPath([[2,1,3,0,-3,3,-4,4,0,-4],[-4,-3,2,2,3,-3,1,-1,1,-2],[-2,0,-4,2,4,-3,-4,-1,3,4],[-1,0,1,0,-3,3,-2,-3,1,0],[0,-1,-2,0,-3,-4,0,3,-2,-2],[-4,-2,0,-1,0,-3,0,4,0,-3],[-3,-4,2,1,0,-4,2,-4,-1,-3],[3,-2,0,-4,1,0,1,-3,-1,-1],[3,-4,0,2,0,-2,2,-4,-2,4],[0,4,0,-3,-4,3,3,-1,-2,-2]]) , 19215865);
+
+
+
+console.log((Date.now() - start)/1000);
+</script>
+</html>
